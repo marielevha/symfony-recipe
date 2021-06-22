@@ -1,0 +1,492 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EDIT RECETTE!{% endblock %}
+
+{% block body %}
+    <!--banner-->
+    <div class="banner banner-blog">
+        <div class="container ">
+            <div class="main-heading">
+                <h1>Submit Recipe</h1>
+            </div>
+
+        </div>
+    </div>
+    {# <div class="advance-search">
+        <!--advance search form-->
+        <div class="container">
+            <div class="wrapper-search">
+                <div class="container-tags">
+                <span class="tag">
+                    <span class="tag-inner">Find Recipes <i class="fa fa-angle-down"></i></span>
+                </span>
+
+                </div>
+                <div class="outer-advance-search">
+
+                    <form action="#" id="advance-search">
+                        <fieldset>
+                            <div class="inner-advance-search">
+
+                                <div class="form-field">
+                                    <label for="ingredient">ingredient</label>
+                                    <select name="ingredient" id="ingredient" class="advance-selectable">
+                                        <option value="ing1" selected="selected">Any Ingredient</option>
+                                        <option value="ing2">Butter</option>
+                                        <option value="ing3">Cheese</option>
+                                        <option value="ing4">Cream</option>
+                                        <option value="ing5">Yeast</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field">
+                                    <label for="course">course</label>
+                                    <select name="course" id="course" class="advance-selectable">
+                                        <option value="ing1" selected="selected">Any Course</option>
+                                        <option value="ing2">Butter</option>
+                                        <option value="ing3">Cheese</option>
+                                        <option value="ing4">Cream</option>
+                                        <option value="ing5">Yeast</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field">
+                                    <label for="cuisine">cuisine</label>
+                                    <select name="cuisine" id="cuisine" class="advance-selectable">
+                                        <option value="ing1" selected="selected">Any Cuisine</option>
+                                        <option value="ing2">Butter</option>
+                                        <option value="ing3">Cheese</option>
+                                        <option value="ing4">Cream</option>
+                                        <option value="ing5">Yeast</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field">
+                                    <label for="time">Cooking Time</label>
+                                    <select name="time" id="time" class="advance-selectable">
+                                        <option value="ing1" selected="selected">Any Cooking Time</option>
+                                        <option value="ing2">Butter</option>
+                                        <option value="ing3">Cheese</option>
+                                        <option value="ing4">Cream</option>
+                                        <option value="ing5">Yeast</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field">
+                                    <label for="calories">calories</label>
+                                    <select name="calories" id="calories" class="advance-selectable">
+                                        <option value="ing1" selected="selected">Any Calories</option>
+                                        <option value="ing2">Butter</option>
+                                        <option value="ing3">Cheese</option>
+                                        <option value="ing4">Cream</option>
+                                        <option value="ing5">Yeast</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit"><i class="fa fa-search"></i></button>
+
+                            </div>
+                        </fieldset>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--advance search form ends-->
+    </div> #}
+    <!--banner ends-->
+
+    <div class="recipes-home-body inner-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="recipe-set submit-recipe-set">
+                        <h2>Submit Recipe</h2>
+                        <p>Food Recipe theme include a Recipe Submit Template. It allow users to submit a recipe with
+                            featured image and related details. A user
+                            should be logged in to submit a recipe. </p>
+
+                        <div class="submit-recipe-form">
+                            {{ form_start(form, {'attr': {'method': 'POST'}}) }}
+                            {#<form action="{{ path('recette_edit', {'id': recette.id}) }}" method="post" enctype="multipart/form-data">#}
+                                <label for="title">Recipe Title</label>
+                                {# <input type="text" value="{{ recette.nom }}" name="cree_recette[nom]" id="cree_recette_nom" /> #}
+                                {{ form_widget(form.nom, {'attr': {'class': '', 'placeholder': 'Recipe Title'}}) }}
+                                <br/>
+
+                                <label for="short-description">Short Description</label>
+                                {# <textarea class="" name="cree_recette[description]" id="short-description">
+                                    {{ recette.description }}
+                                </textarea> #}
+                                {{ form_widget(form.description) }}
+
+                                {# <label for="recipe-content">Recipe Contents</label>
+                                <textarea name="content" id="recipe-content" cols="30" rows="10"></textarea>
+                                {{ form_widget(form.nom, {'attr': {'class': '', 'placeholder': 'Recipe Title'}}) }} #}
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="course-select">Skill Level</label>
+                                        {# <select name="recette[difficulte]" id="course-select" class="advance-selectable">
+                                            <option value="{{ recette.difficulte }}" selected="selected">{{ recette.difficulte }}</option>
+                                            <option value="Facile">Facile</option>
+                                            <option value="2">Level 2</option>
+                                            <option value="3">Level 3</option>
+                                            <option value="4">Level 4</option>
+                                        </select> #}
+                                        {{ form_widget(form.difficulte) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="skill">Categories</label>
+                                        {# <select name="recette[categorie]" id="skill" class="advance-selectable">
+                                            <option value="{{ recette.categorie.id }}" selected="selected">{{ recette.categorie.nom }}</option>
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}">{{ category.nom }}</option>
+                                            {% endfor %}
+                                        </select> #}
+                                        {{ form_widget(form.categorie) }}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="yield">Preparation Time</label>
+                                        {# <input type="text" value="{{ recette.duree }}" name="cree_recette[duree]" id="yield"/> #}
+                                        {# {{ form_widget(form.duree) }} #}
+                                        {# <input type="time" id="edit_recette_date" name="edit_recette[date]" required="required" value="12:38" /> #}
+                                        {{ form_widget(form.date) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="edit_recette_personne">Servings</label>
+                                        {# <input type="text" value="{{ recette.personne }}" name="cree_recette[personne]" id="servings"/> #}
+                                        {# <input type="number" id="edit_recette_personne" name="edit_recette[personne]" required="required" value="{{ recette.personne }}" /> #}
+                                        {{ form_widget(form.personne) }}
+                                    </div>
+                                </div>
+
+                                <label for="upload-image">Overview Image</label>
+                                {#<input type="file" name="new_image" id="new_image"/>#}
+                                {# {{ form_widget(form.image, {'attr': {'class': '',}}) }} #}
+                                {{ form_widget(form.new_image) }}
+
+                                <fieldset class="ingredient-set">
+                                    <label for="medias">Others Medias</label>
+                                    <ul class="list-sortable medias-list">
+                                        <li>
+                                            <div class="add-fields">
+                                                <span class="handler-list"><i class="fa fa-arrows"></i></span>
+                                                <input type="file" name="medias[]" id="medias" class="medias"/>
+                                                <span class="del-list media-trash"><i class="fa fa-trash"></i></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <span class="add-button add-media">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </fieldset>
+
+                                <fieldset class="ingredient-set">
+                                    <label for="ingredients">Ingredients</label>
+                                    <ul class="list-sortable ingredients-list">
+                                        {% for ingredient in recette.ingredients  %}
+                                        <li>
+                                            <div class="add-fields">
+                                                <span class="handler-list"><i class="fa fa-arrows"></i></span>
+                                                <input type="text" value="{{ ingredient.designation }}" name="ingredients[]" id="ingredients"/>
+                                                <span class="del-list"><i class="fa fa-trash"></i></span>
+                                            </div>
+                                        </li>
+                                        {% endfor  %}
+                                    </ul>
+                                    <span class="add-button add-ing">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </fieldset>
+
+                                {#<fieldset class="ingredient-set">
+                                    <label for="steps">Steps</label>
+                                    <ul class="list-sortable steps">
+                                        <li>
+                                            <div class="add-fields">
+                                                <span class="handler-list"><i class="fa fa-arrows"></i></span>
+                                                <textarea class="short-text" name="steps" id="steps" cols="30"
+                                                          rows="10">    </textarea>
+                                                <span class="del-list"><i class="fa fa-trash"></i></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <span class="add-button add-steps">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                </fieldset>#}
+
+                                {# <label class="video-based-recipe">Video Based Recipe</label>
+                                <br/>
+                                <label for="radio-yes">
+                                    <input class="radio-btn" id="radio-yes" type="radio" name="video-recipe" value="yes" checked /><span class="radio-text">yes</span>
+                                </label>
+                                <label for="radio-no">
+                                    <input class="radio-btn" id="radio-no" type="radio" name="video-recipe" value="no"  /> <span class="radio-text">no</span>
+                                </label>
+                                <br/>
+                                <br/>
+                                <label for="video-embed">Video Embed Code</label>
+                                <textarea class="short-text" name="embed-code" id="video-embed" cols="30" rows="10"></textarea> #}
+
+                                {# <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="prep-time">Preparation Time</label>
+                                        <input type="text" name="prep-time" id="prep-time"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="cook-time">Cook Time</label>
+                                        <input type="text" name="cree_recette[duree]" id="cook-time"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="ready-in">Ready In</label>
+                                        <input type="text" name="ready-in" id="ready-in"/>
+                                    </div>
+                                </div> #}
+
+                                {# <label for="tags">Tags</label>
+                                <input type="text" name="tags" id="tags"/> #}
+
+
+                                {{ form_widget(form.duree, {'attr': {'style': 'display: none',}}) }}
+                                {{ form_widget(form.auteur, {'attr': {'style': 'display: none',}}) }}
+                                <div class="text-center">
+                                    <button type="submit" class="recipe-submit-btn">Submit Your Recipe</button>
+                                </div>
+                            {#</form>#}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+                    <aside>
+                        <div class="side-bar">
+                            <!--recipes search widget-->
+                            <div class="widget recipe-search">
+                                <div class="search-bar-widget">
+                                    {#<form action="#">
+                                        <div class="search-field">
+                                            <input type="search" name="search" placeholder="Search"/>
+                                            <button type="submit"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </form>#}
+                                </div>
+
+                                {% if app.user != null and app.user.id == recette.auteur.id %}
+                                <div class="category-list">
+                                    <!--<div class="list-inner">-->
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('recette_show', {'id': recette.id}) }}" class="btn-block">
+                                                <button type="button" class="btn btn-info btn-lg btn-block">Show</button>
+                                            </a>
+                                        </li>
+                                        {{ include('recette/_delete_form.html.twig') }}
+                                    </ul>
+                                    <!--</div>-->
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!--recipes search widget ends-->
+
+                            <!--popular recipes widget-->
+                            {# <div class="widget latest-news-widget">
+                                <h2>popular recipes</h2>
+                                <ul>
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/temp-images/widget-thumbnail.jpg') }}" alt="thumbnail"/>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <a href="#">Pimento Cheese Potato Skins</a>
+                                            <span class="post-date">March 21,2015</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/temp-images/widget-thumbnail.jpg') }}" alt="thumbnail"/>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <a href="#">Pimento Cheese Potato Skins</a>
+                                            <span class="post-date">March 21,2015</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/temp-images/widget-thumbnail.jpg') }}" alt="thumbnail"/>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <a href="#">Pimento Cheese Potato Skins</a>
+                                            <span class="post-date">March 21,2015</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/temp-images/widget-thumbnail.jpg') }}" alt="thumbnail"/>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <a href="#">Pimento Cheese Potato Skins</a>
+                                            <span class="post-date">March 21,2015</span>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div> #}
+                            <!--popular recipes widget ends-->
+
+                            {# <div class="widget">
+                                <a href="#">
+                                    <img src="{{ asset('assets/images/temp-images/add-side.jpg') }}" alt="Add"/>
+                                </a>
+                            </div> #}
+
+                            <!--latest news widget-->
+                            {# <div class="widget latest-news-widget">
+                                <h2>Latest News</h2>
+                                <ul>
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/temp-images/widget-thumbnail.jpg') }}" alt="thumbnail"/>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <a href="#">Pimento Cheese Potato Skins</a>
+                                            <span class="post-date">March 21,2015</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/temp-images/widget-thumbnail.jpg') }}" alt="thumbnail"/>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <a href="#">Pimento Cheese Potato Skins</a>
+                                            <span class="post-date">March 21,2015</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/temp-images/widget-thumbnail.jpg') }}" alt="thumbnail"/>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <a href="#">Pimento Cheese Potato Skins</a>
+                                            <span class="post-date">March 21,2015</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/temp-images/widget-thumbnail.jpg') }}" alt="thumbnail"/>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <a href="#">Pimento Cheese Potato Skins</a>
+                                            <span class="post-date">March 21,2015</span>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div> #}
+                            <!--latest news widget ends-->
+
+                            <!--get social-->
+                            {# <div class="widget widget-get-social">
+                                <h2>get social</h2>
+                                <ul>
+                                    <li class="facebook">
+                                        <a href="#">
+                                            <i class="fa fa-facebook"></i>
+                                            <span class="count">23.5K</span>
+                                            <span class="count-type">Likes</span>
+                                        </a>
+                                    </li>
+                                    <li class="twitter">
+                                        <a href="#">
+                                            <i class="fa fa-twitter"></i>
+                                            <span class="count">23.5K</span>
+                                            <span class="count-type">Likes</span>
+                                        </a>
+                                    </li>
+                                    <li class="google-plus">
+                                        <a href="#">
+                                            <i class="fa fa-google-plus"></i>
+                                            <span class="count">23.5K</span>
+                                            <span class="count-type">Likes</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div> #}
+                            <!--get social ends-->
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script defer>
+        /*$(".medias").on("change", function() {
+            console.log("You can select only 2 images");
+            console.log($(".medias"));
+            if ($(".medias")[0].files.length > 2) {
+                alert("You can select only 2 images");
+            } else {
+                $("#imageUploadForm").submit();
+            }
+        });*/
+
+        $("#btn_delete").on("click", function (e) {
+            e.preventDefault()
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("delete_form").submit();
+                    /*Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )*/
+                }
+            })
+            //confirm('Are you sure you want to delete this item?');
+        });
+
+        function delete_recipe(event) {
+            confirm('Are you sure you want to delete this item?');
+            document.getElementById("delete_form").submit();
+        }
+    </script>
+
+{% endblock %}

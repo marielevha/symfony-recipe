@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NEW CATEGORY{% endblock %}
+
+{% block body %}
+
+    <!--banner-->
+    <div class="banner banner-blog">
+        <div class="container ">
+            <div class="main-heading">
+                <h1>Create Category</h1>
+            </div>
+
+        </div>
+    </div>
+    <!--banner-->
+
+    <div class="recipes-home-body inner-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="recipe-set submit-recipe-set">
+                        <h2>Submit Category</h2>
+                        <p>Food Recipe theme include a Recipe Submit Template. It allow users to submit a recipe with
+                            featured image and related details. A user
+                            should be logged in to submit a recipe. </p>
+
+                        <div class="submit-recipe-form">
+                            {{ form_start(form, {'attr': {'method': 'POST'}}) }}
+                                <label for="categorie_nom">Recipe Title</label>
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Recipe Title'}}) }}
+                                <br/>
+
+                                <label for="categorie_description">Short Description</label>
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Recipe Description'}}) }}
+
+
+                                {#<div class="form-group green-border-focus">
+                                    <label for="exampleFormControlTextarea5">Short Description</label>
+                                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                                </div>#}
+
+                                <div class="text-center">
+                                    <button type="submit" class="recipe-submit-btn">Submit Your Recipe</button>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+                    <aside>
+                        <div class="side-bar">
+                            <!--recipes search widget-->
+                            <div class="widget recipe-search">
+                                <div class="search-bar-widget">
+                                    {#<form action="#">
+                                        <div class="search-field">
+                                            <input type="search" name="search" placeholder="Search"/>
+                                            <button type="submit"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </form>#}
+                                </div>
+
+                                {% if app.user != null %}
+                                    <div class="category-list">
+                                        <!--<div class="list-inner">-->
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('categorie_index') }}" class="btn-block">
+                                                    <button type="button" class="btn btn-primary btn-lg btn-block">Back to list</button>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!--</div>-->
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <!--recipes search widget ends-->
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

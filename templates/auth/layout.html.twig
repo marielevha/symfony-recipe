@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, follow">
+
+
+    {% block stylesheets %}
+        <link rel="icon" type="image/png" href="{{ asset('auth/images/icons/favicon.ico') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('auth/vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('auth/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('auth/vendor/animate/animate.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('auth/vendor/css-hamburgers/hamburgers.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('auth/vendor/select2/select2.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('auth/css/util.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('auth/css/main.css') }}">
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ asset('auth/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('auth/vendor/bootstrap/js/popper.js') }}" defer></script>
+        <script src="{{ asset('auth/vendor/bootstrap/js/bootstrap.min.js') }}" defer></script>
+        <script src="{{ asset('auth/vendor/select2/select2.min.js') }}" defer></script>
+        <script src="{{ asset('auth/vendor/tilt/tilt.jquery.min.js') }}" defer></script>
+        <script >
+            $('.js-tilt').tilt({
+                scale: 1.1
+            })
+        </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13" defer></script>
+        <script defer>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-23581568-13');
+        </script>
+
+        <script src="{{ asset('auth/js/main.js') }}" defer></script>
+
+        <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"rayId":"65f1fc489c021023","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.5.2","si":10}'></script>
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+</body>
+</html>

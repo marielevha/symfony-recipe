@@ -2,18 +2,224 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+        <title>{% block title %}WELCOME!{% endblock %}</title>
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            <!--jquery ui stylesheet-->
+            <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+            <!-- site favicon -->
+            <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" />
+
+            <!--selectric stylesheet-->
+            <link rel="stylesheet" href="{{ asset('assets/css/selectric.css') }}"/>
+            <!--font awesome stylesheet-->
+            <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}"/>
+            <!--swipe box stylesheet-->
+            <link rel="stylesheet" href="{{ asset('assets/css/swipebox.css') }}"/>
+            <!-- mean menu stylesheet-->
+            <link rel="stylesheet" href="{{ asset('assets/css/meanmenu.css') }}"/>
+            <!--slick slider stylesheet-->
+            <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('assets/css/slick-theme.css') }}"/>
+            <!--bootstrap stylesheets-->
+            <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-theme.css') }}"/>
+            <!--animate stylesheet-->
+            <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}"/>
+            <!--main stylesheet-->
+            <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"/>
         {% endblock %}
 
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+            <script src="{{ asset('assets/js/jquery-1.11.3.min.js') }}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+            <script src="{{ asset('assets/js/jquery-ui.js') }}" defer></script>
+            <script src="{{ asset('assets/js/flexslider/jquery.flexslider-min.js') }}" defer></script>
+            <script src="{{ asset('assets/js/slick.min.js') }}" defer></script>
+            <script src="{{ asset('assets/js/jquery.meanmenu.js') }}" defer></script>
+            <script src="{{ asset('assets/js/jquery.selectric.min.js') }}" defer></script>
+            <script src="{{ asset('assets/js/wow.js') }}" defer></script>
+            <script src="{{ asset('assets/js/jquery.form.js') }}" defer></script>
+            <script src="{{ asset('assets/js/jquery.validate.min.js') }}" defer></script>
+            <script src="{{ asset('assets/js/jquery.swipebox.js') }}" defer></script>
+            <script src="{{ asset('assets/js/custom.js') }}" defer></script>
         {% endblock %}
     </head>
     <body>
+        <!--pre-loader-->
+        <div class="preloader">
+            <div class="loadr">
+                <svg  viewbox="0 0 74.6 81">
+                    <path d="M67.8,12.9C51.7,5.2,26.2,0.2,26.2,0.2c-10.9-1.8-9.3,11.4-9,20.2c0,0.7,0.1,1.4,0.1,2c7.8,1.5,19.7,4,29.2,7.4c11.4,4.1,9.6,8.3,9.2,16c-0.2,4.9-0.4,14,1.1,21.3c7.7,1.4,13.8,1.9,13.1-0.3c-6.3-7.2-0.1-29.6,1.8-34.2C73.3,28.7,79.3,18.4,67.8,12.9z">      </path>
+                    <path d="M58.9,79.5c-6.5-5.6-6.2-23.6-5.8-31.3c0.4-7.7,2.1-11.9-9.2-16c-15.3-5.5-37.3-8.8-37.3-8.8c-9.1-1.1-6.6,8.4-5.5,15.1c1.7,10,5.4,22,7.9,27.8c2.8,6.5,8.9,7.3,8.9,7.3S65.4,85.1,58.9,79.5z"></path>
+                </svg>
+            </div>
+        </div>
+        <!--pre-loader ends-->
+
+        <!--header-->
+        <header>
+            <div class="fade-load-down header header-var2 ext-var4">
+                <div class="container">
+                    <div class="wrapper-logo-banner">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="logo-wrapper">
+                                    <a href="{{ path('home') }}"><img src="{{ asset('assets/images/logo.png') }}" alt="logo"/></a>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="banner-login-wrapper">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="wrapper-links">
+                                                <ul class="header-social-icons">
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
+                                                </ul>
+                                                {% if app.user == null %}
+                                                <span class="sign-in-buttons">
+                                                    <a class="login" href="{{ path('login') }}">Login</a>
+                                                    <a class="register" href="{{ path('register') }}">Register</a>
+                                                </span>
+                                                {% else %}
+                                                    <span class="sign-in-buttons">
+                                                        <p>{{ app.user.username }}</p>
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="banner-header">
+                                        <a href="{{ path('home') }}">
+                                            <img src="{{ asset('assets/images/temp-images/header-banner.jpg') }}" alt="banner"/>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- nav-->
+
+                <div class="top-nav">
+                    <div class="container">
+                        <nav class="responsive-menu">
+                            <ul>
+                                <li>
+                                    <a href="{{ path('home') }}">Home</a>
+                                    <ul>
+                                        <li><a href="variation1.html">variation one</a></li>
+                                        <li><a href="variation6.html">variation six</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="recipe-listing.html">Recent Recipes</a>
+                                    <ul>
+                                        <li><a href="recipe-listing.html">recipe listing list view</a></li>
+                                        <li><a href="recipe-listing-grid.html">recipe listing grid view</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{{ path('categorie_index') }}">Categories</a>
+                                </li>
+                                {#<li>
+                                    <a href="recipe-listing.html">Recipe Detail</a>
+                                    <ul>
+                                        <li><a href="recipe-detail.html">Recipe detail version 1</a></li>
+                                        <li><a href="recipe-detail2.html">Recipe detail version 2</a></li>
+                                    </ul>
+                                </li>#}
+                                {#<li><a href="our-chefs.html">Chefs</a></li>#}
+                                {#<li><a href="blog.html">Blog</a>
+                                    <ul>
+                                        <li><a href="single.html">Single post</a></li>
+                                    </ul>
+                                </li>#}
+                                {#<li><a href="elements.html">Elements</a></li>#}
+                                {#<li><a href="contact.html">Contact</a></li>#}
+                                {% if app.user != null %}
+                                    <li class="submit-recipe">
+                                        <a href="{{ path('categorie_new') }}">Submit Category</a>
+                                    </li>
+                                    <li class="submit-recipe">
+                                        <a href="{{ path('recette_create') }}">Submit Recipe</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+                <!-- nav ends-->
+            </div>
+        </header>
+        <!--header ends-->
+
+
         {% block body %}{% endblock %}
+
+        <!--footer-->
+        <div class="animate-footer footer footer-variant-one footer-fluid">
+            <div class="container">
+                <div class="footer-inner">
+                    <div class="text-center">
+                        <a class="logo-footer wow animated zoomIn" href="{{ path('home') }}">
+                            <img src="{{ asset('assets/images/logo2.png') }}" alt="Logo"/>
+                        </a>
+
+                        <p>
+                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore<br/>
+                            magna aliquyam erat, with an extra ordinary design and quality development features in low
+                        </p>
+
+                    </div>
+
+                    <div class="subs-social-options">
+                        <div class="row custom-row-footer">
+                            <div class="col-md-6 custom-col-options">
+                                <div class="left-side">
+                                    <div class="widget widget-footer news-letter-signup">
+                                        <h2>Newsletter Signup</h2>
+
+                                        <form class="subs-form" action="#" method="post">
+                                            <div class="email-field">
+                                                <input type="email" name="email" placeholder="Enter you email address"/>
+                                                <button><i class="fa fa-paper-plane-o"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="right-side">
+                                    <div class="widget widget-footer social-icons">
+                                        <h2>Get Social with Us</h2>
+                                        <ul>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-linkedin"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-youtube-play"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-flickr"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-copyright text-center wow animated flipInY">
+                        <p>&copy; Copyright 2015 All Rights Reserved by <a href="#">Majestic Themes</a></p>
+                    </div>
+                    <div class="corner-image wow animated fadeInRight">
+                        <img src="{{ asset('assets/images/footer-corner-image.jpg') }}" alt="image"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--footer ends-->
     </body>
 </html>
