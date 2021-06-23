@@ -109,22 +109,24 @@
                         <nav class="responsive-menu">
                             <ul>
                                 <li>
-                                    <a href="{{ path('home') }}">Home</a>
-                                    <ul>
+                                    <a href="{{ path('home') }}">Landing Page</a>
+                                    {#<ul>
                                         <li><a href="variation1.html">variation one</a></li>
                                         <li><a href="variation6.html">variation six</a></li>
-                                    </ul>
+                                    </ul>#}
                                 </li>
                                 <li>
-                                    <a href="recipe-listing.html">Recent Recipes</a>
-                                    <ul>
+                                    <a href="javascript:void(0);">Recent Recipes</a>
+                                    {#<ul>
                                         <li><a href="recipe-listing.html">recipe listing list view</a></li>
                                         <li><a href="recipe-listing-grid.html">recipe listing grid view</a></li>
-                                    </ul>
+                                    </ul>#}
                                 </li>
+                                {% if app.user != null %}
                                 <li>
                                     <a href="{{ path('categorie_index') }}">Categories</a>
                                 </li>
+                                {% endif %}
                                 {#<li>
                                     <a href="recipe-listing.html">Recipe Detail</a>
                                     <ul>

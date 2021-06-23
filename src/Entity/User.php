@@ -66,6 +66,13 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $rules;
+
+    private $roles;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -115,7 +122,19 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return explode(',', $this->rules);
+    }
+
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
+    public function setRules(string $rules): self
+    {
+        $this->rules = $rules;
+
+        return $this;
     }
 
     public function getSalt() {}

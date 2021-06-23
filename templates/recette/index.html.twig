@@ -1,20 +1,133 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RecetteController!{% endblock %}
+{% block title %}LIST RECIPES{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <!--banner-->
+    <div class="banner banner-blog">
+        <div class="container ">
+            <div class="main-heading">
+                <h1>LIST RECIPES</h1>
+            </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        </div>
+    </div>
+    <div class="advance-search search-main open">
+        <!--advance search form-->
+        <div class="container">
+            <div class="wrapper-search">
+                <div class="container-tags">
+                    <span class="tag">
+                        <span class="tag-inner">Find Recipes <i class="fa fa-angle-down"></i></span>
+                    </span>
+                </div>
+                <div class="outer-advance-search">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/ssdlv/Documents/ssdlv/symfony-project/recipes_1/src/Controller/RecetteController.php'|file_link(0) }}">src/Controller/RecetteController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/ssdlv/Documents/ssdlv/symfony-project/recipes_1/templates/recette/index.html.twig'|file_link(0) }}">templates/recette/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    {{ form_start(form, {'attr': {'method': 'POST'}}) }}
+                    {#<form action="#" id="advance-search">#}
+                        <fieldset>
+                            <div class="inner-advance-search">
+
+                                <div class="form-field">
+                                    <label for="search_form_categories">Category</label>
+                                    <select id="search_form_categorie" name="search_categorie" class="advance-selectable">
+                                        <option value="O" selected="selected">Choose category</option>
+                                        {% for category in categories %}
+                                            <option value="{{ category.id }}">{{ category.nom }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                {#<div class="form-field">
+                                    <label for="course">Category</label>
+                                    {{ form_widget(form.categories) }}
+                                </div>#}
+
+                                <div class="form-field">
+                                    <label for="course">course</label>
+                                    {{ form_widget(form.q) }}
+                                </div>
+
+                                <button type="submit"><i class="fa fa-search"></i></button>
+
+                            </div>
+                        </fieldset>
+                    {#</form>#}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <!--advance search form ends-->
+    </div>
+    <!--banner-->
+
+    <div class="recipes-home-body inner-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="body-contents">
+
+                        <div class="recipe-set">
+                            <h2>Latest Recipes</h2>
+
+                            <div class="boxed-recipes text-center">
+                                {% for recette in recettes %}
+                                    <!--single recipe-->
+                                    <div class="recipe-single animated wow flipInY animation-delay200ms">
+                                        <div class="recipe-image">
+                                            <a href="{{ path('recette_show', {'id': recette.id}) }}">
+                                                <img src="{{ asset('box/' ~ recette.image) }}" alt="{{ recette.nom }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="outer-detail">
+                                            <div class="detail">
+                                                <h3>
+                                                    <a href="{{ path('recette_show', {'id': recette.id}) }}">{{ recette.nom }}</a>
+                                                </h3>
+
+                                                <div class="short-separator"></div>
+                                                <ul class="news-post-meta post-meta">
+                                                    <li class="author"><a href="javascript:void(0);">{{ recette.auteur }}</a></li>
+                                                    <li class="date">{{ recette.date ? recette.date|date('Y/m/d') : '' }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--single recipe ends-->
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!--recipe of the day-->
+                        {#<div class="recipe-of-day animated wow fadeIn">
+                            <img src="{{ asset('assets/images/temp-images/recipe-of-the-day.jpg') }}" alt="Recipe of the day">
+
+                            <div class="recipe-contents-outer">
+                                <div class="recipe-contents text-center">
+                                    <div class="recipe-content-inner">
+                                        <span class="tag">Recipe of the Day</span>
+
+                                        <h2><a href="#">Pasto Pizza With Fillas Cheese Topping</a></h2>
+
+                                        <div class="short-separator"></div>
+                                        <p>Nam ornare arcu turpis, nec congu
+                                            Curabitur quis euismod...</p>
+                                        <a href="#" class="read-more">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>#}
+                        <!--recipe of the day ends-->
+
+                        {#<div class="banner-header text-center">
+                            <a href="#">
+                                <a href="#"><img src="{{ asset('assets/images/temp-images/header-banner.jpg') }}" alt="banner"></a>
+                            </a>
+                        </div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

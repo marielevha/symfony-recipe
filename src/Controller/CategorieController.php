@@ -8,7 +8,9 @@ use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/categorie")
@@ -22,9 +24,17 @@ class CategorieController extends AbstractController
      */
     public function index(CategorieRepository $categorieRepository): Response
     {
-        return $this->render('categorie/index.html.twig', [
-            'categories' => $categorieRepository->findAll(),
-        ]);
+        try {
+            return $this->render('categorie/index.html.twig', [
+                'categories' => $categorieRepository->findAll(),
+            ]);
+        }
+        catch (AccessDeniedException $deniedException) {
+            return $this->redirectToRoute('login');
+        }
+        catch (\Exception $e) {
+            return $this->redirectToRoute('login');
+        }
     }
 
     /**

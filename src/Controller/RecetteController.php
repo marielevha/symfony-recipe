@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Ingredient;
 use App\Entity\Media;
 use App\Entity\Recette;
 use App\Form\CreeRecetteType;
 use App\Form\EditRecetteType;
+use App\Form\SearchForm;
 use App\Repository\CategorieRepository;
 use App\Repository\IngredientRepository;
 use App\Repository\RecetteRepository;
@@ -38,12 +40,34 @@ class RecetteController extends AbstractController
      * @param CategorieRepository $categorieRepository
      * @return Response
      */
-    public function index(RecetteRepository $recetteRepository, CategorieRepository $categorieRepository): Response
+    public function index(Request $request, RecetteRepository $recetteRepository, CategorieRepository $categorieRepository): Response
     {
-        return $this->render('home/index.html.twig', [
-            'categories' => $categorieRepository->findAll(),
-            'popular_recipes' => $recetteRepository->popular_recipes(6),
-            'latest_recipes' => $recetteRepository->latest_recipes(6)
+        $data = new SearchData();
+        //$data->categories = $categorieRepository->findAll();
+        //dd($data);
+        //$data->q = 'Pasto Pizza';
+        $categories = $categorieRepository->findAll();
+        $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $data->categorie = $categorieRepository->find($request->get('search_categorie'));
+
+            //$recettes = $recetteRepository->findSearch($data);
+            //dd([$data]);
+        }
+        $recettes = $recetteRepository->findSearch($data);
+
+        //$recettes = $recetteRepository->findSearch($data);
+        /*return $this->render('recette/index.html.twig', [
+            'recettes' => $recettes,
+            'categories' => $categories,
+            'form' => $form->createView(),
+        ]);*/
+
+        return $this->json([
+            'code' => 200,
+            'data' => $recettes
         ]);
     }
 
@@ -132,11 +156,7 @@ class RecetteController extends AbstractController
      * @param CategorieRepository $categorieRepository
      * @return Response
      */
-    public function edit(
-        Request $request,
-        RecetteRepository $recetteRepository,
-        CategorieRepository $categorieRepository
-    ): Response
+    public function edit(Request $request, RecetteRepository $recetteRepository, CategorieRepository $categorieRepository): Response
     {
         //$recette = new Recette();
         $id = $request->attributes->getInt('id');

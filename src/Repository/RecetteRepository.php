@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Recette;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -128,5 +129,26 @@ class RecetteRepository extends ServiceEntityRepository
             $rating += $note->getValeur();
         }
         return $rating == 0 ? 0 : intval(ceil($rating / $notes->count()));
+    }
+
+    public function findSearch(SearchData $search)
+    {
+        $query = $this->createQueryBuilder('r')
+            ->select('r', 'c')
+            ->join('r.categorie', 'c')
+        ;
+
+        if (!empty($search->q)) {
+            $query = $query
+                ->andWhere('r.nom LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+        if (!empty($search->categorie)) {
+            $query = $query
+                ->andWhere('r.categorie = :cat')
+                ->setParameter('cat', $search->categorie);
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

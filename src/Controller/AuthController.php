@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,9 @@ class AuthController extends AbstractController
 {
     /**
      * @Route("/register", name="register")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return Response
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -51,6 +55,16 @@ class AuthController extends AbstractController
     public function logout() {}
 
     /**
+     * @Route("/me", name="me")
+     * @param UserRepository $userRepository
+     */
+    public function me(UserRepository $userRepository)
+    {
+        $user = $userRepository->find($this->getUser()->getId());
+        dd([$user, $this->getUser(), $user->getRoles()]);
+    }
+
+    /**
      * @Route("/index", name="index")
      */
     public function index(): Response
@@ -59,4 +73,6 @@ class AuthController extends AbstractController
             'controller_name' => 'AuthController'
         ]);
     }
+
+
 }
