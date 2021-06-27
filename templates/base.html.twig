@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}WELCOME!{% endblock %}</title>
@@ -28,6 +28,7 @@
             <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}"/>
             <!--main stylesheet-->
             <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         {% endblock %}
 
         {% block javascripts %}
@@ -43,6 +44,9 @@
             <script src="{{ asset('assets/js/jquery.validate.min.js') }}" defer></script>
             <script src="{{ asset('assets/js/jquery.swipebox.js') }}" defer></script>
             <script src="{{ asset('assets/js/custom.js') }}" defer></script>
+            {#<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>#}
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" defer></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" defer></script>
         {% endblock %}
     </head>
     <body>
@@ -77,16 +81,24 @@
                                                     <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
                                                     <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
                                                     <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
+                                                    {% if app.user != null %}
+                                                        <li>
+                                                            <a title="My Profile" href="{{ path('user_profile', {'slug': app.user.slug}) }}">
+                                                                <h4>Hello {{ app.user.username }} !</h4>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a title="Logout" href="{{ path('logout') }}">
+                                                                <i class="fa fa-power-off"></i>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
                                                 </ul>
                                                 {% if app.user == null %}
                                                 <span class="sign-in-buttons">
                                                     <a class="login" href="{{ path('login') }}">Login</a>
                                                     <a class="register" href="{{ path('register') }}">Register</a>
                                                 </span>
-                                                {% else %}
-                                                    <span class="sign-in-buttons">
-                                                        <p>{{ app.user.username }}</p>
-                                                    </span>
                                                 {% endif %}
                                             </div>
 
@@ -116,7 +128,7 @@
                                     </ul>#}
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Recent Recipes</a>
+                                    <a href="{{ path('recette_index') }}">Recent Recipes</a>
                                     {#<ul>
                                         <li><a href="recipe-listing.html">recipe listing list view</a></li>
                                         <li><a href="recipe-listing-grid.html">recipe listing grid view</a></li>

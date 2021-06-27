@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Data\SearchData;
+use App\Data\Service;
 use App\Entity\Ingredient;
 use App\Entity\Media;
+use App\Entity\Note;
 use App\Entity\Recette;
 use App\Form\CreeRecetteType;
 use App\Form\EditRecetteType;
 use App\Form\SearchForm;
 use App\Repository\CategorieRepository;
 use App\Repository\IngredientRepository;
+use App\Repository\NoteRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,21 +24,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * @Route("/recette")
- */
 class RecetteController extends AbstractController
 {
+    use Service;
+
     private $ingredientRepository;
 
     public function __construct()
     {
-        //$this->entityManager = $this->getDoctrine()->getManager();
         $this->ingredientRepository = IngredientRepository::class;
     }
 
     /**
-     * @Route("/", name="recette_index")
+     * @Route("/recette/", name="recette_index")
+     * @param Request $request
      * @param RecetteRepository $recetteRepository
      * @param CategorieRepository $categorieRepository
      * @return Response
@@ -43,36 +45,24 @@ class RecetteController extends AbstractController
     public function index(Request $request, RecetteRepository $recetteRepository, CategorieRepository $categorieRepository): Response
     {
         $data = new SearchData();
-        //$data->categories = $categorieRepository->findAll();
-        //dd($data);
-        //$data->q = 'Pasto Pizza';
         $categories = $categorieRepository->findAll();
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             $data->categorie = $categorieRepository->find($request->get('search_categorie'));
-
-            //$recettes = $recetteRepository->findSearch($data);
-            //dd([$data]);
         }
         $recettes = $recetteRepository->findSearch($data);
 
-        //$recettes = $recetteRepository->findSearch($data);
-        /*return $this->render('recette/index.html.twig', [
+        return $this->render('recette/index.html.twig', [
             'recettes' => $recettes,
             'categories' => $categories,
             'form' => $form->createView(),
-        ]);*/
-
-        return $this->json([
-            'code' => 200,
-            'data' => $recettes
         ]);
     }
 
     /**
-     * @Route("/create", name="recette_create")
+     * @Route("/recette/create", name="recette_create")
      * @param Request $request
      * @param CategorieRepository $categorieRepository
      * @param UserRepository $userRepository
@@ -116,6 +106,7 @@ class RecetteController extends AbstractController
             $user = $userRepository->findOneBy(['id' => 6]);
             $recette->setAuteur($user);
             $recette->setDifficulte($request->get('difficulte'));
+            $recette->setSlug($this->slug_generate($recette->getNom()));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($recette);
@@ -150,7 +141,7 @@ class RecetteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="recette_edit")
+     * @Route("/recette/{id}/edit", name="recette_edit")
      * @param Request $request
      * @param RecetteRepository $recetteRepository
      * @param CategorieRepository $categorieRepository
@@ -158,7 +149,6 @@ class RecetteController extends AbstractController
      */
     public function edit(Request $request, RecetteRepository $recetteRepository, CategorieRepository $categorieRepository): Response
     {
-        //$recette = new Recette();
         $id = $request->attributes->getInt('id');
         $recette = $recetteRepository->find($id);
 
@@ -185,8 +175,6 @@ class RecetteController extends AbstractController
 
         if ($form->isSubmitted()) {
             $entityManager = $this->getDoctrine()->getManager();
-            //dd($fiche = $form->get('new_image')->getData());
-            //dd($request->files->get('new_image'));
 
             #Clear last ingredients & add new ingredients
             $ingredients_req = $request->get('ingredients');
@@ -235,16 +223,10 @@ class RecetteController extends AbstractController
                 }
 
                 #Save to db
+                $recette->setSlug($this->slug_generate($recette->getNom()));
                 $entityManager->persist($recette);
-
-                //cascade={"persist"}
-
                 $this->upload_multiple_media($medias, $recette, $entityManager);
             }
-
-
-
-
 
             $entityManager->flush();
             /*dd([
@@ -300,30 +282,30 @@ class RecetteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="recette_show", methods={"GET"})
+     * @Route("/recette/{slug}", name="recette_show", methods={"GET"})
      * @param Request $request
      * @param RecetteRepository $recetteRepository
      * @return Response
      */
     public function show(Request $request, RecetteRepository $recetteRepository)
     {
-        $id = $request->attributes->getInt('id');
-        $recette = $recetteRepository->find($id);
+        $slug = $request->attributes->get('slug');
+        $recette = $recetteRepository->find_by_slug($slug);
+        //dd($recette);
+
+        //$id = $request->attributes->getInt('id');
+        //$recette = $recetteRepository->find($id);
         $comments = $recette->getComments();
         foreach ($comments as $comment) {
             $comment->setTimeAgo($this->time_ago(date_format($comment->getPublishAt(), 'Y-m-d H:i:s')));
         }
-        //dump($comments->first());
-        //$time = $comments->first()->getPublishAt();
-        //dump($this->time_ago(date_format($time, 'Y-m-d H:i:s')));
-        //die();
         $comments = $comments->getValues();
         usort($comments, function($a, $b) {
             return $b->getPublishAt()->format('U') - $a->getPublishAt()->format('U');
         });
-        //dump($comments);
-        //dump(array_reverse($comments));
-        //die();
+        $recette->rating = $this->avg_rating($recette->getNotes());
+
+        //dd($recette->getAuteur()->);
 
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
@@ -333,24 +315,17 @@ class RecetteController extends AbstractController
     }
 
     /**
-     * @Route("/popular_recipes", name="popular_recipes", methods={"GET"})
+     * @Route("/recette/popular_recipes", name="popular_recipes", methods={"GET"})
      * @param RecetteRepository $recetteRepository
      */
     public function popular_recipes(RecetteRepository $recetteRepository)
     {
         $recipes = $recetteRepository->popular_recipes(6);
-        /*foreach ($recipes as $recipe) {
-            $recipe->rating = $this->avg_rating($recipe->getNotes());
-        }
-        usort($recipes, function($a, $b)
-        {
-            return strcmp($b->rating, $a->rating);
-        });*/
         dd($recipes);
     }
 
     /**
-     * @Route("/latest_recipes/{id}", name="latest_recipes", methods={"GET"})
+     * @Route("/recette/latest_recipes/{id}", name="latest_recipes", methods={"GET"})
      * @param Request $request
      * @param RecetteRepository $recetteRepository
      * @param SerializerInterface $serializer
@@ -359,25 +334,55 @@ class RecetteController extends AbstractController
     public function latest_recipes(Request $request, RecetteRepository $recetteRepository, SerializerInterface $serializer)
     {
         $category = $request->attributes->getInt('id');
-        //dd($recetteRepository->findAllWithPaginate(1));
         $recipes = $recetteRepository->latest_recipes(5, $category);
-        /*foreach ($recipes as $recipe) {
-            $recipe->rating = $this->avg_rating($recipe->getNotes());
-            //dump($recipe->getNotes());
-            //dump($this->avg_rating($recipe->getNotes()));
-        }*/
-
-        //$json = $serializer->serialize($recipes, 'json', ['groups' => ['user', 'categorie']]);
-        //dd($recipes);
         return $this->json([
             'code' => 200,
             'data' => $recipes
         ]);
-        dd($recipes);
     }
 
     /**
-     * @Route("/{id}/delete", name="recette_delete", methods={"POST"})
+     * @Route("/data_recipes", name="data_recipes", methods={"GET"})
+     * @param Request $request
+     * @param RecetteRepository $recetteRepository
+     * @param CategorieRepository $categorieRepository
+     * @param UserRepository $userRepository
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function data_recipes(Request $request, RecetteRepository $recetteRepository, CategorieRepository $categorieRepository, UserRepository $userRepository)
+    {
+        $search = new SearchData();
+        if ($request->query->has('q')) {
+            $search->q = $request->query->get('q');
+        }
+        if ($request->query->has('level') && $request->query->get('level') != null) {
+            $search->categorie = $request->query->get('category');
+        }
+        if ($request->query->has('category') && $request->query->get('category') != null) {
+            $search->categorie = $categorieRepository->find($request->query->get('category'));
+        }
+        if ($request->query->has('slug') && $request->query->get('slug') != null) {
+            //$slug = $this->slug_generate($request->query->get('username'));
+            $search->user = $userRepository->find_by_slug($request->query->get('slug'));
+        }
+        if ($request->query->has('start') && $request->query->get('start') != null) {
+            $search->start = strtotime($request->query->get('start'));
+            $search->start = new \DateTime(date('m/d/Y', $search->start));
+        }
+        if ($request->query->has('end') && $request->query->get('end') != null) {
+            $search->end = strtotime($request->query->get('end'));
+            $search->end = new \DateTime(date('m/d/Y H:i:s', $search->end));
+        }
+
+        $recipes = $recetteRepository->findSearch($search);
+
+        sleep(2);
+        return $this->json($recipes, 200, [], ['groups' => 'recette:read']);
+    }
+
+    /**
+     * @Route("/recette/{id}/delete", name="recette_delete", methods={"POST"})
      * @param Request $request
      * @param Recette $recette
      * @return RedirectResponse
@@ -391,6 +396,55 @@ class RecetteController extends AbstractController
         }
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/recette/{id}/rate", name="recette_rate", methods={"GET", "POST"})
+     * @param Request $request
+     * @param NoteRepository $noteRepository
+     * @param RecetteRepository $recetteRepository
+     * @param UserRepository $userRepository
+     */
+    public function rate(Request $request, NoteRepository $noteRepository, RecetteRepository $recetteRepository, UserRepository $userRepository)
+    {
+        $recette = $recetteRepository->find($request->get('id'));
+        $value = $request->get('value');
+        $user = $userRepository->find(7);
+        $updated = false;
+
+        //dd($recette->getNotes()->getValues());
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach ($recette->getNotes() as $note) {
+            if ($note->getAuteur()->getId() === $user->getId()) {
+                $note->setValeur($value);
+                $entityManager->persist($note);
+                $updated = !$updated;
+                $entityManager->flush();
+                break;
+            }
+        }
+        if (!$updated) {
+            $_note = new Note();
+            $_note->setValeur($value);
+            $_note->setAuteur($user);
+            $_note->setRecette($recette);
+            $entityManager->persist($_note);
+            $entityManager->flush();
+            $recette->addNote($_note);
+        }
+        //dd($recette->getNotes()->getValues());
+        $rating = $this->avg_rating($recette->getNotes());
+        return $this->json(['rating' => $rating]);
+        //return $this->json($recette, 200, [], ['groups' => 'recette:read']);
+        //die();
+    }
+
+    /**
+     * @Route("/recette/{id}/print")
+     */
+    public function export_pdf()
+    {
+
     }
 
     private function upload_multiple_media($files, $recette, $entityManager)
@@ -418,7 +472,7 @@ class RecetteController extends AbstractController
         });
     }
 
-    private function avg_rating($notes)
+    private function _avg_rating($notes)
     {
         $rating = 0;
         foreach ($notes as $note) {
@@ -427,23 +481,31 @@ class RecetteController extends AbstractController
         return intval(ceil($rating / $notes->count()));
     }
 
-    private function time_ago($date)
+    private function avg_rating($notes): int
     {
-        $timestamp = strtotime($date);
-
-        $strTime = array("second", "minute", "hour", "day", "month", "year");
-        $length = array("60","60","24","30","12","10");
-
-        $currentTime = time();
-        if($currentTime >= $timestamp) {
-            $diff     = time()- $timestamp;
-            for($i = 0; $diff >= $length[$i] && $i < count($length)-1; $i++) {
-                $diff = $diff / $length[$i];
-            }
-
-            $diff = round($diff);
-            return $diff . " " . $strTime[$i] . "(s) ago ";
+        $rating = 0;
+        foreach ($notes as $note) {
+            $rating += $note->getValeur();
         }
+        return $rating == 0 ? 0 : intval(ceil($rating / $notes->count()));
     }
 
+
+    /**
+     * @Route("/generate_slug")
+     */
+    public function generate_slug(Request $request, RecetteRepository $recetteRepository)
+    {
+        $recettes = $recetteRepository->findAll();
+
+        $em = $this->getDoctrine()->getManager();
+        foreach ($recettes as $recette) {
+            $slug = $this->slug_generate($recette->getNom().' '.$recette->getId());
+            $recette->setSlug($slug);
+            $em->persist($recette);
+        }
+        $em->flush();
+
+        dd($recettes);
+    }
 }

@@ -135,6 +135,7 @@ class RecetteRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('r')
             ->select('r', 'c')
+            ->orderBy('r.date', 'DESC')
             ->join('r.categorie', 'c')
         ;
 
@@ -143,12 +144,43 @@ class RecetteRepository extends ServiceEntityRepository
                 ->andWhere('r.nom LIKE :q')
                 ->setParameter('q', "%{$search->q}%");
         }
+        if (!empty($search->level)) {
+            $query = $query
+                ->andWhere('r.difficulte = :level')
+                ->setParameter('level', $search->level);
+        }
         if (!empty($search->categorie)) {
             $query = $query
                 ->andWhere('r.categorie = :cat')
                 ->setParameter('cat', $search->categorie);
         }
+        if (!empty($search->start)) {
+            $query = $query
+                ->andWhere('r.date > :start')
+                ->setParameter('start', $search->start);
+        }
+        if (!empty($search->end)) {
+            $query = $query
+                ->andWhere('r.date < :end')
+                ->setParameter('end', $search->end);
+        }
+        if (!empty($search->user)) {
+            $query = $query
+                ->andWhere('r.auteur = :user')
+                ->setParameter('user', $search->user);
+        }
 
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param string $slug
+     * @return Recette|null
+     */
+    public function find_by_slug(string $slug)
+    {
+        return $this->findOneBy([
+            'slug' => $slug
+        ]);
     }
 }

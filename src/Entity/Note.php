@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=NoteRepository::class)
@@ -14,11 +15,13 @@ class Note
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("recette:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("recette:read")
      */
     private $valeur;
 

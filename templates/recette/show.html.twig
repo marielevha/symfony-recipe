@@ -24,79 +24,6 @@
         <!--advance search form-->
         <div class="container">
             <div class="wrapper-search">
-                {#<div class="container-tags">
-                    <span class="tag">
-                        <span class="tag-inner">Find Recipes <i class="fa fa-angle-down"></i></span>
-                    </span>
-                </div>#}
-                {#<div class="outer-advance-search">
-
-                    <form action="#" id="advance-search">
-                        <fieldset>
-                            <div class="inner-advance-search">
-
-                                <div class="form-field">
-                                    <label for="ingredient">ingredient</label>
-                                    <select name="ingredient" id="ingredient" class="advance-selectable">
-                                        <option value="ing1" selected="selected">Any Ingredient</option>
-                                        <option value="ing2">Butter</option>
-                                        <option value="ing3">Cheese</option>
-                                        <option value="ing4">Cream</option>
-                                        <option value="ing5">Yeast</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-field">
-                                    <label for="course">course</label>
-                                    <select name="course" id="course" class="advance-selectable">
-                                        <option value="ing1" selected="selected">Any Course</option>
-                                        <option value="ing2">Butter</option>
-                                        <option value="ing3">Cheese</option>
-                                        <option value="ing4">Cream</option>
-                                        <option value="ing5">Yeast</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-field">
-                                    <label for="cuisine">cuisine</label>
-                                    <select name="cuisine" id="cuisine" class="advance-selectable">
-                                        <option value="ing1" selected="selected">Any Cuisine</option>
-                                        <option value="ing2">Butter</option>
-                                        <option value="ing3">Cheese</option>
-                                        <option value="ing4">Cream</option>
-                                        <option value="ing5">Yeast</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-field">
-                                    <label for="time">Cooking Time</label>
-                                    <select name="time" id="time" class="advance-selectable">
-                                        <option value="ing1" selected="selected">Any Cooking Time</option>
-                                        <option value="ing2">Butter</option>
-                                        <option value="ing3">Cheese</option>
-                                        <option value="ing4">Cream</option>
-                                        <option value="ing5">Yeast</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-field">
-                                    <label for="calories">calories</label>
-                                    <select name="calories" id="calories" class="advance-selectable">
-                                        <option value="ing1" selected="selected">Any Calories</option>
-                                        <option value="ing2">Butter</option>
-                                        <option value="ing3">Cheese</option>
-                                        <option value="ing4">Cream</option>
-                                        <option value="ing5">Yeast</option>
-                                    </select>
-                                </div>
-
-                                <button type="submit"><i class="fa fa-search"></i></button>
-
-                            </div>
-                        </fieldset>
-
-                    </form>
-                </div>#}
             </div>
         </div>
         <!--advance search form ends-->
@@ -113,94 +40,14 @@
                                 <div class="wrapper-recipe-heading">
                                     <div class="heading">
                                         <h2>{{ recette.nom }}</h2>
-                                        {#<input type="hidden" id="recipe_id" value="{{ recette.id }}">#}
                                         <div class="rating-box">
-                                        <span class="rating-icons">
-                                            <svg class="icon-container" width="25" height="19"
-                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 19">
-                                                <g>
-                                                    <title>background</title>
-                                                    <rect fill="none" height="21" width="27" y="-1" x="-1"/>
-                                                </g>
-                                                <g>
-                                                    <title>Layer 1</title>
-                                                    <path class="icon-svg"
-                                                          d="m24.671816,17.625433c0,0.438 -0.286999,0.801001 -0.681,0.935001c-0.095001,0.036999 -0.198002,0.064999 -0.318001,0.064999l-16.000998,0c-0.553,0 -1,-0.448 -1,-1c0,-0.553999 0.447,-1 1,-1l14.950999,0c-0.500999,-5.053999 -4.764997,-9 -9.950999,-9c-5.523,0 -10,4.477001 -10,10c0,0 0.063,1 -1,1c-1.062,0 -1,-1 -1,-1c0,-5.769999 4.071,-10.581999 9.495001,-11.734999c-0.306002,-0.52 -0.495001,-1.117001 -0.495001,-1.765001c0,-1.933999 1.566999,-3.499999 3.5,-3.499999c1.931999,0 3.499,1.567 3.499,3.499999c0,0.739 -0.232998,1.423 -0.624998,1.989c4.984999,1.459 8.625998,6.056 8.625998,11.511l0,0zm-11.499,-15c-0.828999,0 -1.500999,0.670001 -1.500999,1.499001c0,0.827999 0.672001,1.5 1.500999,1.5c0.828001,0 1.499001,-0.672001 1.499001,-1.5c0,-0.829 -0.671,-1.499001 -1.499001,-1.499001l0,0z"
-                                                          clip-rule="evenodd" fill-rule="evenodd"/>
-                                                </g>
-                                            </svg>
-                                        </span>
-                                            <span class="rating-icons"><svg class="icon-container" width="25"
-                                                                            height="19"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 25 19">
-
-                                            <g>
-                                                <title>background</title>
-                                                <rect fill="none" height="21" width="27" y="-1" x="-1"/>
-                                            </g>
-                                            <g>
-                                                <title>Layer 1</title>
-                                                <path class="icon-svg"
-                                                      d="m24.671816,17.625433c0,0.438 -0.286999,0.801001 -0.681,0.935001c-0.095001,0.036999 -0.198002,0.064999 -0.318001,0.064999l-16.000998,0c-0.553,0 -1,-0.448 -1,-1c0,-0.553999 0.447,-1 1,-1l14.950999,0c-0.500999,-5.053999 -4.764997,-9 -9.950999,-9c-5.523,0 -10,4.477001 -10,10c0,0 0.063,1 -1,1c-1.062,0 -1,-1 -1,-1c0,-5.769999 4.071,-10.581999 9.495001,-11.734999c-0.306002,-0.52 -0.495001,-1.117001 -0.495001,-1.765001c0,-1.933999 1.566999,-3.499999 3.5,-3.499999c1.931999,0 3.499,1.567 3.499,3.499999c0,0.739 -0.232998,1.423 -0.624998,1.989c4.984999,1.459 8.625998,6.056 8.625998,11.511l0,0zm-11.499,-15c-0.828999,0 -1.500999,0.670001 -1.500999,1.499001c0,0.827999 0.672001,1.5 1.500999,1.5c0.828001,0 1.499001,-0.672001 1.499001,-1.5c0,-0.829 -0.671,-1.499001 -1.499001,-1.499001l0,0z"
-                                                      clip-rule="evenodd" fill-rule="evenodd"/>
-                                            </g>
-                                        </svg></span>
-                                            <span class="rating-icons"><svg class="icon-container" width="25"
-                                                                            height="19"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 25 19">
-
-                                            <g>
-                                                <title>background</title>
-                                                <rect fill="none" height="21" width="27" y="-1" x="-1"/>
-                                            </g>
-                                            <g>
-                                                <title>Layer 1</title>
-                                                <path class="icon-svg"
-                                                      d="m24.671816,17.625433c0,0.438 -0.286999,0.801001 -0.681,0.935001c-0.095001,0.036999 -0.198002,0.064999 -0.318001,0.064999l-16.000998,0c-0.553,0 -1,-0.448 -1,-1c0,-0.553999 0.447,-1 1,-1l14.950999,0c-0.500999,-5.053999 -4.764997,-9 -9.950999,-9c-5.523,0 -10,4.477001 -10,10c0,0 0.063,1 -1,1c-1.062,0 -1,-1 -1,-1c0,-5.769999 4.071,-10.581999 9.495001,-11.734999c-0.306002,-0.52 -0.495001,-1.117001 -0.495001,-1.765001c0,-1.933999 1.566999,-3.499999 3.5,-3.499999c1.931999,0 3.499,1.567 3.499,3.499999c0,0.739 -0.232998,1.423 -0.624998,1.989c4.984999,1.459 8.625998,6.056 8.625998,11.511l0,0zm-11.499,-15c-0.828999,0 -1.500999,0.670001 -1.500999,1.499001c0,0.827999 0.672001,1.5 1.500999,1.5c0.828001,0 1.499001,-0.672001 1.499001,-1.5c0,-0.829 -0.671,-1.499001 -1.499001,-1.499001l0,0z"
-                                                      clip-rule="evenodd" fill-rule="evenodd"/>
-                                            </g>
-                                        </svg></span>
-                                            <span class="rating-icons"><svg class="icon-container" width="25"
-                                                                            height="19"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 25 19">
-
-                                            <g>
-                                                <title>background</title>
-                                                <rect fill="none" height="21" width="27" y="-1" x="-1"/>
-                                            </g>
-                                            <g>
-                                                <title>Layer 1</title>
-                                                <path class="icon-svg"
-                                                      d="m24.671816,17.625433c0,0.438 -0.286999,0.801001 -0.681,0.935001c-0.095001,0.036999 -0.198002,0.064999 -0.318001,0.064999l-16.000998,0c-0.553,0 -1,-0.448 -1,-1c0,-0.553999 0.447,-1 1,-1l14.950999,0c-0.500999,-5.053999 -4.764997,-9 -9.950999,-9c-5.523,0 -10,4.477001 -10,10c0,0 0.063,1 -1,1c-1.062,0 -1,-1 -1,-1c0,-5.769999 4.071,-10.581999 9.495001,-11.734999c-0.306002,-0.52 -0.495001,-1.117001 -0.495001,-1.765001c0,-1.933999 1.566999,-3.499999 3.5,-3.499999c1.931999,0 3.499,1.567 3.499,3.499999c0,0.739 -0.232998,1.423 -0.624998,1.989c4.984999,1.459 8.625998,6.056 8.625998,11.511l0,0zm-11.499,-15c-0.828999,0 -1.500999,0.670001 -1.500999,1.499001c0,0.827999 0.672001,1.5 1.500999,1.5c0.828001,0 1.499001,-0.672001 1.499001,-1.5c0,-0.829 -0.671,-1.499001 -1.499001,-1.499001l0,0z"
-                                                      clip-rule="evenodd" fill-rule="evenodd"/>
-                                            </g>
-                                        </svg></span>
-                                            <span class="rating-icons"><svg class="icon-container" width="25"
-                                                                            height="19"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 25 19">
-
-                                            <g>
-                                                <title>background</title>
-                                                <rect fill="none" height="21" width="27" y="-1" x="-1"/>
-                                            </g>
-                                            <g>
-                                                <title>Layer 1</title>
-                                                <path class="icon-svg"
-                                                      d="m24.671816,17.625433c0,0.438 -0.286999,0.801001 -0.681,0.935001c-0.095001,0.036999 -0.198002,0.064999 -0.318001,0.064999l-16.000998,0c-0.553,0 -1,-0.448 -1,-1c0,-0.553999 0.447,-1 1,-1l14.950999,0c-0.500999,-5.053999 -4.764997,-9 -9.950999,-9c-5.523,0 -10,4.477001 -10,10c0,0 0.063,1 -1,1c-1.062,0 -1,-1 -1,-1c0,-5.769999 4.071,-10.581999 9.495001,-11.734999c-0.306002,-0.52 -0.495001,-1.117001 -0.495001,-1.765001c0,-1.933999 1.566999,-3.499999 3.5,-3.499999c1.931999,0 3.499,1.567 3.499,3.499999c0,0.739 -0.232998,1.423 -0.624998,1.989c4.984999,1.459 8.625998,6.056 8.625998,11.511l0,0zm-11.499,-15c-0.828999,0 -1.500999,0.670001 -1.500999,1.499001c0,0.827999 0.672001,1.5 1.500999,1.5c0.828001,0 1.499001,-0.672001 1.499001,-1.5c0,-0.829 -0.671,-1.499001 -1.499001,-1.499001l0,0z"
-                                                      clip-rule="evenodd" fill-rule="evenodd"/>
-                                            </g>
-                                        </svg>
-                                        </span>
-                                            <span class="rating-figure">({{ recette.rating }} / 5)</span>
+                                            {% for i in range(1, 5) %}
+                                                {{ include('components/star.html.twig', {index: i}) }}
+                                            {% endfor %}
+                                            <span class="rating-figure">
+                                                ({{ recette.notes.count }})
+                                            </span>
                                         </div>
-                                    </div>
-                                    <div class="recipe-media">
-                                        <a class="button-dark watch-video swipebox" href="https://vimeo.com/15306847">Watch
-                                            Video</a>
                                     </div>
                                 </div>
 
@@ -264,12 +111,6 @@
                                             </span>
                                             <span class="text">Cook Time</span>
                                         </li>
-                                        {#<li>
-                                            <span class="count">{{ recette.duree }}
-                                                <span>h</span>
-                                            </span>
-                                            <span class="text">Prep Time</span>
-                                        </li>#}
                                     </ul>
                                 </div>
                             </div>
@@ -467,32 +308,6 @@
                                     </ul>
                                 </div>#}
 
-                                {#<div class="tips-variations">
-                                    <h3>Tips & variations</h3>
-                                    <ul>
-                                        <li>
-                                            <p>
-                                                Rinse the chicken pieces in cold water and pat dry. Place the chicken in
-                                                a large, resealable zip-top bag
-                                                and pour in the marinade. Toss the chicken inside the bag to cover.
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Rinse the chicken pieces in cold water and pat dry. Place the chicken in
-                                                a large, resealable zip-top bag
-                                                and pour in the marinade.
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Rinse the chicken pieces in cold water and pat dry. Place the chicken in
-                                                a large, resealable zip-top bag
-                                                and pour in the marinade. Toss the chicken inside the bag to cover.
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>#}
 
                                 <div class="separator-post"></div>
                                 {#<div class="tags-icons">
@@ -522,37 +337,35 @@
                                 </div>#}
                             </div>
 
-                            {# <div class="about-chef">
+                             <div class="about-chef">
                                 <h3 class="lined">About Chef</h3>
                                 <div class="listing">
                                     <div class="image">
                                         <div class="image-inner">
-                                            <a href="#"><img src="images/temp-images/about-chef-detail.jpg" alt="chef"/></a>
+                                            <a href="{{ path('user_profile', {'slug': recette.auteur.slug}) }}">
+                                                <img src="{{ asset('assets/images/temp-images/about-chef-detail.jpg') }}" alt="chef"/>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="detail">
                                         <div class="row">
                                             <div class="col-sm-8">
-                                                <h4><a href="#">james anderson</a></h4>
+                                                <h4><a href="{{ path('user_profile', {'slug': recette.auteur.slug}) }}">{{ recette.auteur.username }}</a></h4>
 
                                             </div>
                                             <div class="col-sm-4">
                                                 <ul class="chef-social-links">
-                                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        <p>
-                                            Rinse the chicken pieces in cold water and pat dry. Place the chicken in a large,
-                                            resealable zip-top bag and pour in the marinade. Toss the chicken inside the
-                                            bag to cover evenly with the marinade and refrigerate.
-                                        </p>
-                                        <a href="#" class="read-more-angle">Read More</a>
+                                        <p>{{ recette.auteur.biography }}</p>
+                                        <a href="{{ path('user_profile', {'slug': recette.auteur.slug}) }}" class="read-more-angle">Read More</a>
                                     </div>
                                 </div>
-                            </div> #}
+                            </div>
 
                             {# <div class="related-recipes">
                                 <h3 class="lined">Related Recipes</h3>
@@ -958,194 +771,34 @@
                                     </form>#}
                                 </div>
 
-                                {% if app.user != null and app.user.id == recette.auteur.id %}
+                                {% if app.user != null %}
                                     <div class="category-list">
                                         <!--<div class="list-inner">-->
                                         <ul>
+                                            {% if app.user.id == recette.auteur.id %}
+                                                <li>
+                                                    <a href="{{ path('recette_edit', {'id': recette.id}) }}" class="btn-block">
+                                                        <button type="button" class="btn btn-info btn-lg btn-block">Edit</button>
+                                                    </a>
+                                                </li>
+                                                {{ include('recette/_delete_form.html.twig') }}
+                                            {% endif %}
                                             <li>
-                                                <a href="{{ path('recette_edit', {'id': recette.id}) }}" class="btn-block">
-                                                    <button type="button" class="btn btn-info btn-lg btn-block">Edit</button>
+                                                <a href="javascript:void(0);" id="btn-rate" class="btn-block">
+                                                    <button type="button" class="btn btn-info btn-lg btn-block">Rate</button>
                                                 </a>
                                             </li>
-                                            {{ include('recette/_delete_form.html.twig') }}
+                                            <li style="display: none" id="star-block">
+                                                <a href="javascript:void(0);" class="text-center">
+                                                    {{ include('components/star_empty.html.twig') }}
+                                                </a>
+                                            </li>
                                         </ul>
                                         <!--</div>-->
                                     </div>
                                 {% endif %}
                             </div>
                             <!--recipes search widget ends-->
-
-                            <!--popular recipes widget-->
-                            {#<div class="widget latest-news-widget">
-                                <h2>popular recipes</h2>
-                                <ul>
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src="images/temp-images/widget-thumbnail.jpg" alt="thumbnail"/>
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <a href="#">Pimento Cheese Potato Skins</a>
-                                            <span class="post-date">March 21,2015</span>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src="images/temp-images/widget-thumbnail.jpg" alt="thumbnail"/>
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <a href="#">Pimento Cheese Potato Skins</a>
-                                            <span class="post-date">March 21,2015</span>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src="images/temp-images/widget-thumbnail.jpg" alt="thumbnail"/>
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <a href="#">Pimento Cheese Potato Skins</a>
-                                            <span class="post-date">March 21,2015</span>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src="images/temp-images/widget-thumbnail.jpg" alt="thumbnail"/>
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <a href="#">Pimento Cheese Potato Skins</a>
-                                            <span class="post-date">March 21,2015</span>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>#}
-                            <!--popular recipes widget ends-->
-
-                            {#<div class="widget">
-                                <a href="#">
-                                    <img src="images/temp-images/add-side.jpg" alt="Add"/>
-                                </a>
-                            </div>
-
-                            <div class="widget widget-measurements">
-                                <h2>Cooking Measurements</h2>
-                                <ul>
-                                    <li>1 cup = 250 ml = 16 Tablespoons</li>
-                                    <li>1/2 cup = 125 ml = 8 Tablespoons</li>
-                                    <li>1/3 cup = 83 ml = 5.3 Tablespoons</li>
-                                    <li>1/4 cup = 62 ml = 4 Tablespoons</li>
-                                    <li>1 Pinch = 1/8 Teaspoon</li>
-                                </ul>
-                                <a class="default-btn small-button theme-color" href="#">Read More</a>
-                            </div>#}
-
-                            <!--widget overlay-->
-                            {#<div class="widget widget-overlay">
-                                <a href="#">
-                                    <figure>
-                                        <img src="images/temp-images/image-overlay.jpg" alt="image"/>
-                                        <figcaption>our weekly special</figcaption>
-                                    </figure>
-                                </a>
-
-                            </div>#}
-                            <!--widget overlay ends-->
-
-                            <!--latest news widget-->
-                            {#<div class="widget latest-news-widget">
-                                <h2>Latest News</h2>
-                                <ul>
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src="images/temp-images/widget-thumbnail.jpg" alt="thumbnail"/>
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <a href="#">Pimento Cheese Potato Skins</a>
-                                            <span class="post-date">March 21,2015</span>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src="images/temp-images/widget-thumbnail.jpg" alt="thumbnail"/>
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <a href="#">Pimento Cheese Potato Skins</a>
-                                            <span class="post-date">March 21,2015</span>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src="images/temp-images/widget-thumbnail.jpg" alt="thumbnail"/>
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <a href="#">Pimento Cheese Potato Skins</a>
-                                            <span class="post-date">March 21,2015</span>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src="images/temp-images/widget-thumbnail.jpg" alt="thumbnail"/>
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <a href="#">Pimento Cheese Potato Skins</a>
-                                            <span class="post-date">March 21,2015</span>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>#}
-                            <!--latest news widget ends-->
-
-                            <!--get social-->
-                            {#<div class="widget widget-get-social">
-                                <h2>get social</h2>
-                                <ul>
-                                    <li class="facebook">
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                            <span class="count">23.5K</span>
-                                            <span class="count-type">Likes</span>
-                                        </a>
-                                    </li>
-                                    <li class="twitter">
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                            <span class="count">23.5K</span>
-                                            <span class="count-type">Likes</span>
-                                        </a>
-                                    </li>
-                                    <li class="google-plus">
-                                        <a href="#">
-                                            <i class="fa fa-google-plus"></i>
-                                            <span class="count">23.5K</span>
-                                            <span class="count-type">Likes</span>
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>#}
-                            <!--get social ends-->
                         </div>
                     </aside>
                 </div>
@@ -1155,69 +808,29 @@
     </div>
 
     <script>
-        /*$.ajax({
-            url: '/cycles/all',
-            type: 'GET',
-            data: {query:query,year:year,filter:filter,page:page,limit:limit},
-            dataType: 'json',
-            success: function (response) {
-                //Data
-                var record = null;
-                var rows = '';
-                $.each(response.data, function (key, value) {
-                    record ++;
-                    rows = rows +  "<tr>";
-                    //rows = rows + '<td>'+record+'</td>';
-                    rows = rows + '<td>'+value.designation_cycle+'</td>';
-                    rows = rows + '<td>'+value.created_at_cycle+'</td>';
-                    if (value.statut_cycle === 0 || value.statut_cycle === false){
-                        rows = rows + '<td><span class="kt-badge kt-badge--danger kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-danger">Disable</span>'+'</td>';
-                    }else {
-                        rows = rows + '<td><span class="kt-badge kt-badge--success kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-success">Enable</span>'+'</td>';
-                    }
-                    rows = rows + '<td style="" nowrap="">' +
-                        '<a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md get bt-view" title="View Details" data-toggle="modal" data-target="#viewCycleModal" data-id="'+value.id+'"><i class="la la-eye"></i>\n'+
-                        '<a  href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md get bt-edit" title="Edit Details" data-toggle="modal" data-target="#editCycleModal" data-id="'+value.id+'"><i class="la la-edit"></i></a>\n' +
-                        '<a  href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md get bt-update" title="Update Status" data-toggle="modal" data-target="#updateStatusCycleModal" data-id="'+value.id+'"><i class="la la-pencil"></i></a>\n' +
-                        '</td></tr>';
-                });
-                $('tbody').html(rows);
-        * */
         $(document).ready(function () {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+            let baseurl = window.location.origin
+            let path = baseurl + window.location.pathname + '/find'
             let spinner = $('#spinner');
             let recipe_id = $('#recipe').val();
             load_comment(recipe_id);
 
             function load_comment (id) {
+                console.log(path)
+                path = path.replace('recette', 'comment')
                 $.ajax({
-                    url: 'https://localhost:8000/comment/1/find',
+                    url: path,
                     type: 'get',
                     data: {id: id},
                     dataType: 'json',
                     success: function(comments){
                         let html = '';
                         $.each(comments, function (key, comment) {
-                            /*<li>
-                                <div class="avatar">
-                                    <a href="javascript:void (0);">
-                                        <img src="https://ui-avatars.com/api/?name=John Doe&color=7F9CF5&background=EBF4FF" alt="avatar"/>
-                                    </a>
-                                </div>
-                                <div class="comment">
-                                    <h5>
-                                        <a href="javascript:void(0);">Comment Author</a>
-                                    </h5>
-                                    <span class="time">(1hour ago)</span>
-                                    <p>Comment Content</p>
-                                    <a href="javascript:void(0);" class="reply-button">Reply</a>
-                                </div>
-                            </li>*/
                             html = html + '<li>'
                             html = html + '<div class="avatar"><a href="javascript:void (0);">' +
                                 '<img src="https://ui-avatars.com/api/?name='+comment.auteur.username+'&color=7F9CF5&background=EBF4FF" alt="avatar"/></a>' +
@@ -1225,21 +838,18 @@
                             html = html + '<div class="comment"><h5><a href="javascript:void(0);">'+comment.auteur.username+'</a></h5>'
                             html = html + '<span class="time">('+comment.time_ago+')</span>' +
                                 '<p>'+comment.content+'</p></div></li>'
-                            console.log(comment);
                         });
                         $('#list-comments').html(html);
                     },
                     beforeSend: function () {
-                        //console.log('SEND')
+                        console.log('SEND')
                         spinner.css("display", 'block');
                     }
                 })
                 .done(function () {
-                    //console.log('DONE')
                     spinner.css("display", 'none');
                 })
                 .error(function () {
-                    //console.log('ERROR')
                     spinner.css("display", 'none');
                 })
                 ;
@@ -1270,7 +880,6 @@
                         $('#total_comments').text('Comments ('+total_comments+')')
                     },
                     beforeSend: function () {
-                        //console.log('SEND')
                         btn.attr("disabled", true);
                     }
                 })
@@ -1291,7 +900,17 @@
                     'content': $('#content').val(),
                 }
                 post_comment(comment)
-                //console.log(comment)
+            });
+
+            let display_state = false
+            $('#btn-rate').on("click", function (e) {
+                e.preventDefault()
+                console.log('BTN6CLICK')
+                if (display_state === false)
+                    $('#star-block').css('display', 'block')
+                else
+                    $('#star-block').css('display', 'none')
+                display_state = !display_state
             });
         });
     </script>

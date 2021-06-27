@@ -22,7 +22,8 @@ class CommentRepository extends ServiceEntityRepository
     public function findByRecipe($recipe_id)
     {
         $query = $this->createQueryBuilder('c')
-            ->andWhere('c.recette = :recipe')->setParameter('recipe', $recipe_id)
+            ->andWhere('c.recette = :recipe')
+            ->setParameter('recipe', $recipe_id)
             ->orderBy('c.publish_at', 'DESC')
             //->addSelect(['c.content', 'c.publish_at', 'c.recette'])
             ->getQuery()

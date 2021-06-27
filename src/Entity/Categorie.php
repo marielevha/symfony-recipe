@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
@@ -17,14 +18,23 @@ class Categorie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("recette:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Input is required")
+     * @Groups("recette:read")
      */
     private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("comment:read")
+     * @Groups("recette:read")
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -55,6 +65,18 @@ class Categorie
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

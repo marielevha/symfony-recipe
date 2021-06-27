@@ -17,56 +17,74 @@ class Recette
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @Groups("recette:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("recette:read")
      */
     private $nom;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("comment:read")
+     * @Groups("recette:read")
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("recette:read")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("recette:read")
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("recette:read")
      */
     private $difficulte;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("recette:read")
      */
     private $personne;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("recette:read")
      */
     private $duree;
 
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="recettes")
+     * @Groups("recette:read")
      */
     private $categorie;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recettes")
+     * @Groups("recette:read")
      */
     private $auteur;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("recette:read")
      */
     private $date;
 
     /**
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="recette")
+     * @Groups("recette:read")
      */
     private $notes;
 
@@ -111,6 +129,18 @@ class Recette
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

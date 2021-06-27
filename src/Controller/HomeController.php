@@ -12,9 +12,13 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
+     * @param RecetteRepository $recetteRepository
+     * @param CategorieRepository $categorieRepository
+     * @return Response
      */
     public function index(RecetteRepository $recetteRepository, CategorieRepository $categorieRepository): Response
     {
+        //dd($recetteRepository->popular_recipes(6));
         return $this->render('home/index.html.twig', [
             'categories' => $categorieRepository->findAll(),
             'popular_recipes' => $recetteRepository->popular_recipes(6),

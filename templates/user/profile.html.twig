@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}LIST RECIPES{% endblock %}
+{% block title %}PROFILE | {{ user.username }}{% endblock %}
 
 {% block body %}
     <style>
@@ -28,7 +28,7 @@
 
         </div>
     </div>
-    <div class="advance-search search-main open">
+    <div class="advance-search">
         <!--advance search form-->
         <div class="container">
             <div class="wrapper-search">
@@ -39,8 +39,8 @@
                 </div>
                 <div class="outer-advance-search">
 
-                    {# {{ form_start(form, {'attr': {'method': 'POST'}}) }} #}
-                    <form action="javascript:void(0);" id="advance-search">
+                    {#{{ form_start(form, {'attr': {'method': 'POST'}}) }}#}
+                    <form action="#" id="advance-search">
                         <fieldset>
                             <div class="inner-advance-search">
 
@@ -62,16 +62,15 @@
                                         <option value="Moyen">Moyen</option>
                                         <option value="Difficile">Difficile</option>
                                         <option value="Expert">Expert</option>
-                                        {# {% for category in categories %}
+                                        {#{% for category in categories %}
                                             <option value="{{ category.id }}">{{ category.nom }}</option>
-                                        {% endfor %} #}
+                                        {% endfor %}#}
                                     </select>
                                 </div>
 
                                 <div class="form-field">
                                     <label for="filter_time">Publish At</label>
-                                    <div id="reportrange"
-                                         style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                         <i class="fa fa-calendar"></i>&nbsp;
                                         <span></span> <i class="fa fa-caret-down"></i>
                                     </div>
@@ -80,15 +79,15 @@
                                 <div class="form-field">
                                     <label for="q">Recipe Title</label>
                                     <input type="text" name="q" id="q">
-                                    {# {{ form_widget(form.q) }} #}
+                                    {#{{ form_widget(form.q) }}#}
                                 </div>
 
-                                {#<button type="submit"><i class="fa fa-search"></i></button>#}
+                                <button type="submit"><i class="fa fa-search"></i></button>
 
                             </div>
                         </fieldset>
                     </form>
-                    {# {{ form_end(form) }} #}
+                    {#{{ form_end(form) }}#}
                 </div>
             </div>
         </div>
@@ -99,35 +98,81 @@
     <div class="recipes-home-body inner-page">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-lg-9">
-                    <div class="recipe-set">
-                        <div class="listing-buttons">
-                            <span class="grid "><i class="fa fa-th-large"></i></span>
-                            <span class="list current"><i class="fa fa-bars"></i></span>
-                        </div>
-                        <h2>Latest Recipes</h2>
+                <div class="col-md-8 col-lg-12">
+                    <div class="body-contents">
+                        <div class="recipe-set">
 
-                        <div class="recipe-listing listing-list" id="list-recipes">
+                            <div class="about-chef">
+                                <h3 class="lined">About Chef</h3>
+                                <div class="listing">
+                                    <div class="image">
+                                        <div class="image-inner">
+                                            <a href="javascript:void(0);">
+                                                <img src="{{ asset('assets/images/temp-images/about-chef-detail.jpg') }}" alt="chef"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="detail">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <h4><a href="javascript:void(0);">{{ user.username }}</a></h4>
+
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <ul class="chef-social-links">
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
+                                                    <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p>{{ user.biography }}</p>
+                                        {#<a href="javascript:void(0);" class="read-more-angle">Read More</a>#}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <h2>Latest Recipes</h2>
+
                             <img id="spinner" class="center_comment" src="{{ asset('assets/images/spinner.gif') }}" alt="RECIPE" style="display: block;">
+
+                            <div class="boxed-recipes text-center" id="list-recipes">
+                                {#{% for recette in recettes %}
+                                    <!--single recipe-->
+                                    <div class="recipe-single animated wow flipInY animation-delay200ms">
+                                        <div class="recipe-image">
+                                            <a href=<a"{{ path('recette_show', {'id': recette.id}) }}">
+                                                <img src="{{ asset('box/' ~ recette.image) }}" alt="{{ recette.nom }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="outer-detail">
+                                            <div class="detail">
+                                                <h3>
+                                                    <a href="{{ path('recette_show', {'id': recette.id}) }}">{{ recette.nom }}</a>
+                                                </h3>
+
+                                                <div class="short-separator"></div>
+                                                <ul class="news-post-meta post-meta">
+                                                    <li class="author"><a href="javascript:void(0);">{{ recette.auteur }}</a></li>
+                                                    <li class="date">{{ recette.date ? recette.date|date('Y/m/d') : '' }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--single recipe ends-->
+                                {% endfor %}#}
+                            </div>
                         </div>
-                        <ul class="page-nav">
-                            <li class="current">
-                                <a href="javascript:void(0)">1</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">2</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">3</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-     <script>
+    <input type="hidden" id="slug" value="{{ user.slug }}">
+
+    <script>
         $(document).ready(function () {
             $.ajaxSetup({
                 headers: {
@@ -143,6 +188,7 @@
                 'category': null,
                 'startDate': null,
                 'endDate': null,
+                'slug': $('#slug').val(),
             }
             let start = moment().subtract(29, 'days');
             let end = moment();
@@ -167,70 +213,48 @@
                         category: params.category,
                         start: startDate,
                         end: endDate,
+                        slug: params.slug
                     },
                     dataType: 'json',
                     success: function(recipes){
                         let box = baseurl + '/box/'
                         let path = baseurl + window.location.pathname
                         let html = ''
-                        let widget = ''
                         $.each(recipes, function (key, recipe) {
-                            let description = recipe.description
-                            if (description.length > 150) {
-                                description = description.substring(0, 150) + ' . . .'
-                            }
                             let date = new Date(recipe.date)
                             date = date.getDate()
                                 + '/' + ("0" + (date.getMonth() + 1)).slice(-2) + '/'
                                 + date.getFullYear()
                             html += '<div class="recipe-single animated wow flipInY animation-delay200ms">'
-                                html += '<div class="recipe-image">'
-                                    html += '<a href="'+ path + recipe.slug +'"><img src="'+ box+recipe.image +'" alt="'+ recipe.nom +'"></a>'
-                                html += '</div>'
-                                html += '<div class="outer-detail">'
-                                    html += '<div class="detail">'
-                                        html += '<h3><a href="'+ path + recipe.slug +'">'+ recipe.nom +'</a></h3>'
-                                        html += '<div class="short-separator"></div>'
-                                        html += '<ul class="news-post-meta post-meta">'
-                                            html += '<li class="author"><a href="javascript:void(0);">'+ recipe.auteur.username +'</a></li>'
-                                            html += '<li class="date">'+ date +'</li>'
-                                        html += '</ul>'
-                                    html += '</div>'
-                                html += '</div>'
+                            html += '<div class="recipe-image">'
+                            html += '<a href="'+ path + recipe.id +'"><img src="'+ box+recipe.image +'" alt="'+ recipe.nom +'"></a>'
                             html += '</div>'
-
-                            widget += '<div class="listing">'
-                            widget += '<div class="image">' +
-                                '   <a href="'+ path + recipe.slug +'">' +
-                                '       <img src="'+ box+recipe.image +'" alt="'+ recipe.nom +'">' +
-                                '   </a>' +
-                                '</div>'
-                            widget += '<div class="detail">' +
-                                '<h4><a href="'+ path + recipe.slug +'">'+ recipe.nom +'</a></h4>' +
-                                '<p>'+ description +'</p>' +
-                                '<div class="meta-listing">' +
-                                '   <ul class="post-meta">' +
-                                '       <li class="author"><a href="#">'+ recipe.auteur.username +'</a></li>' +
-                                '       <li class="date">'+ date +'</li>' +
-                                '   </ul>' +
-                                '</div>' +
-                                '</div>'
-                            widget += '</div>'
+                            html += '<div class="outer-detail">'
+                            html += '<div class="detail">'
+                            html += '<h3><a href="'+ path + recipe.id +'">'+ recipe.nom +'</a></h3>'
+                            html += '<div class="short-separator"></div>'
+                            html += '<ul class="news-post-meta post-meta">'
+                            html += '<li class="author"><a href="javascript:void(0);">'+ recipe.auteur.username +'</a></li>'
+                            html += '<li class="date">'+ date +'</li>'
+                            html += '</ul>'
+                            html += '</div>'
+                            html += '</div>'
+                            html += '</div>'
                         });
-                        $('#list-recipes').html(widget);
+                        $('#list-recipes').html(html);
                     },
                     beforeSend: function () {
                         spinner.css("display", 'block');
                         console.log("SEND")
                     }
                 })
-                .done(function () {
-                    spinner.css("display", 'none');
-                    console.log("DONE")
-                })
-                .error(function () {
-                    spinner.css("display", 'none');
-                })
+                    .done(function () {
+                        spinner.css("display", 'none');
+                        console.log("DONE")
+                    })
+                    .error(function () {
+                        spinner.css("display", 'none');
+                    })
                 ;
             }
 
@@ -293,5 +317,4 @@
             }
         });
     </script>
-
 {% endblock %}

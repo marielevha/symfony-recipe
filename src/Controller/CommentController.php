@@ -27,16 +27,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/", name="comment")
-     */
-    public function index(): Response
-    {
-        return $this->render('comment/index.html.twig', [
-            'controller_name' => 'CommentController',
-        ]);
-    }
-
-    /**
      * @Route("/create", name="comment_create", methods={"POST"})
      * @param Request $request
      * @param UserRepository $userRepository
@@ -56,39 +46,23 @@ class CommentController extends AbstractController
         $entityManager->persist($comment);
         $entityManager->flush();
         return $this->json($comment, 200, [], ['groups' => 'comment:read']);
-        /*return $this->json(
-            [
-                'comment' => $comment,
-                'total' => 12
-            ],
-            200,
-            [],
-            ['groups' => 'comment:read']
-        );*/
     }
 
     /**
-     * @Route("/{id}/find", name="comment_find", methods={"GET"})
+     * @Route("/{slug}/find", name="comment_find", methods={"GET"})
      * @param Request $request
      * @param CommentRepository $commentRepository
+     * @param RecetteRepository $recetteRepository
      * @param SerializerInterface $serializer
+     * @param NormalizerInterface $normalizer
      * @return Response
      */
-    public function find_comment_by_recipe(Request $request, CommentRepository $commentRepository, SerializerInterface $serializer, NormalizerInterface $normalizer)
+    public function find_comment_by_recipe(Request $request, CommentRepository $commentRepository, RecetteRepository $recetteRepository)
     {
-        $recipe_id = $request->get('id');
-        $comments = $commentRepository->findByRecipe($recipe_id);
+        $recipe = $recetteRepository->find_by_slug($request->attributes->get('slug'));
+        $comments = $commentRepository->findByRecipe($recipe->getId());
 
         sleep(2);
-        //dd($comments);
-
-        /*$result = $serializer->normalize($comments, 'json', ['groups' => 'comment:read']);
-
-        $commentsNormalizer = $normalizer->normalize($comments, null, ['groups' => 'comment:read']);
-        $json = json_encode($commentsNormalizer);
-
-        $response = new JsonResponse($result, 200);
-        $response = new JsonResponse($json, 200, [], true);*/
         return $this->json($comments, 200, [], ['groups' => 'comment:read']);
     }
 }

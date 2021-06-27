@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Data\Service;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,11 +22,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class User implements UserInterface
 {
+    use Service;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("comment:read")
+     * @Groups("recette:read")
      */
     private $id;
 
@@ -33,6 +37,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\Email()
      * @Assert\NotBlank(message="Input is required")
+     * @Groups("recette:read")
      */
     private $email;
 
@@ -40,8 +45,26 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Input is required")
      * @Groups("comment:read")
+     * @Groups("recette:read")
      */
     private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups("comment:read")
+     * @Groups("recette:read")
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $biography;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -67,6 +90,11 @@ class User implements UserInterface
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity=Recette::class, mappedBy="auteur")
+     */
+    private $recettes;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $rules;
@@ -75,8 +103,10 @@ class User implements UserInterface
 
     public function __construct()
     {
+        //$this->slug = $this->slug($this->username);
         $this->notes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,6 +134,42 @@ class User implements UserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getBiography()
+    {
+        return $this->biography;
+    }
+
+    public function setBiography(string $biography): self
+    {
+        $this->biography = $biography;
+
+        return $this;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
@@ -200,6 +266,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getAuteur() === $this) {
                 $comment->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getRecettes(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addRecette(Recette $recette): self
+    {
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes[] = $recette;
+            $recette->setRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recette $recette): self
+    {
+        if ($this->recettes->removeElement($recette)) {
+            // set the owning side to null (unless already changed)
+            if ($recette->getRecette() === $this) {
+                $recette->setRecette(null);
             }
         }
 

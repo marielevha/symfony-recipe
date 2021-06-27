@@ -4650,6 +4650,7 @@ div.widget-measurements .default-btn {
   width: 20px;
 }
 .recipe-detail-body .rating-box .icon-svg {
+  /*fill: #6ebe3b;*/
   fill: #6ebe3b;
 }
 .pre-tags {
