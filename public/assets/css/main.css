@@ -4067,7 +4067,7 @@ div.widget-measurements .default-btn {
   flex-wrap: wrap;
 }
 .boxed-recipes .recipe-single {
-  width: 31%;
+  width: 24%;
   margin-bottom: 30px;
 }
 .boxed-recipes .recipe-single:hover .recipe-image img {
@@ -6163,7 +6163,7 @@ div.widget-measurements .default-btn {
     text-align: center;
   }
   .boxed-recipes .recipe-single {
-    width: 47%;
+    width: 25%;
   }
   #contact-form {
     padding-right: 0;

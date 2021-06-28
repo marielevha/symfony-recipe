@@ -40,4 +40,14 @@ class SearchData
      * @var User
      */
     public $user;
+
+    /**
+     * @var int
+     */
+    public $page = 1;
+
+    /**
+     * @var int
+     */
+    public $limit = 9;
 }

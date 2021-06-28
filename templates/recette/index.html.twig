@@ -105,13 +105,14 @@
                             <span class="grid "><i class="fa fa-th-large"></i></span>
                             <span class="list current"><i class="fa fa-bars"></i></span>
                         </div>
-                        <h2>Latest Recipes</h2>
+                        <h2 id="latest_recipes">Latest Recipes</h2>
 
+                        <img id="spinner" class="center_comment" src="{{ asset('assets/images/spinner.gif') }}" alt="RECIPE" style="display: block;">
                         <div class="recipe-listing listing-list" id="list-recipes">
-                            <img id="spinner" class="center_comment" src="{{ asset('assets/images/spinner.gif') }}" alt="RECIPE" style="display: block;">
+
                         </div>
-                        <ul class="page-nav">
-                            <li class="current">
+                        <ul class="page-nav" id="pagination">
+                            {#<li class="current">
                                 <a href="javascript:void(0)">1</a>
                             </li>
                             <li>
@@ -119,7 +120,7 @@
                             </li>
                             <li>
                                 <a href="javascript:void(0)">3</a>
-                            </li>
+                            </li>#}
                         </ul>
                     </div>
                 </div>
@@ -143,6 +144,8 @@
                 'category': null,
                 'startDate': null,
                 'endDate': null,
+                'page': 1,
+                'limit': 9,
             }
             let start = moment().subtract(29, 'days');
             let end = moment();
@@ -167,14 +170,16 @@
                         category: params.category,
                         start: startDate,
                         end: endDate,
+                        page: params.page,
+                        limit: params.limit,
                     },
                     dataType: 'json',
                     success: function(recipes){
                         let box = baseurl + '/box/'
                         let path = baseurl + window.location.pathname
-                        let html = ''
+                        //let html = ''
                         let widget = ''
-                        $.each(recipes, function (key, recipe) {
+                        $.each(recipes.data, function (key, recipe) {
                             let description = recipe.description
                             if (description.length > 150) {
                                 description = description.substring(0, 150) + ' . . .'
@@ -183,7 +188,7 @@
                             date = date.getDate()
                                 + '/' + ("0" + (date.getMonth() + 1)).slice(-2) + '/'
                                 + date.getFullYear()
-                            html += '<div class="recipe-single animated wow flipInY animation-delay200ms">'
+                            /*html += '<div class="recipe-single animated wow flipInY animation-delay200ms">'
                                 html += '<div class="recipe-image">'
                                     html += '<a href="'+ path + recipe.slug +'"><img src="'+ box+recipe.image +'" alt="'+ recipe.nom +'"></a>'
                                 html += '</div>'
@@ -197,7 +202,7 @@
                                         html += '</ul>'
                                     html += '</div>'
                                 html += '</div>'
-                            html += '</div>'
+                            html += '</div>'*/
 
                             widget += '<div class="listing">'
                             widget += '<div class="image">' +
@@ -218,15 +223,15 @@
                             widget += '</div>'
                         });
                         $('#list-recipes').html(widget);
+
+                        build_pagination(recipes)
                     },
                     beforeSend: function () {
-                        spinner.css("display", 'block');
-                        console.log("SEND")
+                        spinner.css("display", 'block');                        console.log("SEND")
                     }
                 })
                 .done(function () {
                     spinner.css("display", 'none');
-                    console.log("DONE")
                 })
                 .error(function () {
                     spinner.css("display", 'none');
@@ -249,15 +254,17 @@
                 params.q = filter_q.val()
                 load_recipes(params, start, end)
             });
+            $(document).on("click", ".paginate-link" , function(e) {
+                //e.preventDefault();
+                params.page = $(this).data('id')
+                load_recipes(params)
+            });
 
             function cb(_start, _end) {
                 $('#reportrange span').html(_start.format('MMMM D, YYYY') + ' - ' + _end.format('MMMM D, YYYY'));
 
                 start = _start
                 end = _end
-                //params.startDate = start
-                //params.endDate =end
-                console.log(start)
                 load_recipes(params, start, end)
             }
 
@@ -290,6 +297,23 @@
                 let _date = [year, month, day].join('-');
                 let _time = [hours, minutes, seconds].join(':')
                 return _date + ' ' + _time;
+            }
+
+            function build_pagination(data) {
+                let pages = ''
+                //pages += '<li class=""><a href="javascript:void(0)"><i class="fa fa-arrow-left"></a></li>'
+
+                let last = data.last_page + 1
+                for (let i = 1; i < last; i++) {
+                    if (i === data.current_page) {
+                        pages += '<li class="current"><a data-id="'+i+'" class="paginate-link"  href="#latest_recipes">'+ i +'</a></li>'
+                    }
+                    else {
+                        pages += '<li class=""><a data-id="'+i+'" class="paginate-link" href="#latest_recipes">'+ i +'</a></li>'
+                    }
+                }
+                //pages += '<li class=""><a href="javascript:void(0)"><i class="fa fa-arrow-right"></a></li>'
+                $('#pagination').html(pages);
             }
         });
     </script>

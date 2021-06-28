@@ -133,12 +133,14 @@
                             </div>
 
 
-                            <h2>Latest Recipes</h2>
+                            {#<div class="row">
+                                <div class="col-md-8 col-lg-12">#}
+                                    <h2>Latest Recipes</h2>
 
-                            <img id="spinner" class="center_comment" src="{{ asset('assets/images/spinner.gif') }}" alt="RECIPE" style="display: block;">
+                                    <img id="spinner" class="center_comment" src="{{ asset('assets/images/spinner.gif') }}" alt="RECIPE" style="display: block;">
 
-                            <div class="boxed-recipes text-center" id="list-recipes">
-                                {#{% for recette in recettes %}
+                                    <div class="boxed-recipes text-center" id="list-recipes">
+                                        {#{% for recette in recettes %}
                                     <!--single recipe-->
                                     <div class="recipe-single animated wow flipInY animation-delay200ms">
                                         <div class="recipe-image">
@@ -162,7 +164,10 @@
                                     </div>
                                     <!--single recipe ends-->
                                 {% endfor %}#}
-                            </div>
+                                    </div>
+
+                                {#</div>
+                            </div>#}
                         </div>
                     </div>
                 </div>
@@ -189,6 +194,8 @@
                 'startDate': null,
                 'endDate': null,
                 'slug': $('#slug').val(),
+                'page': 1,
+                'limit': 9,
             }
             let start = moment().subtract(29, 'days');
             let end = moment();
@@ -198,6 +205,7 @@
             let filter_category = $('#filter_category');
             //load_recipes(params);
             function load_recipes (params, start = null, end = null) {
+                console.log(baseurl)
                 let startDate = null
                 if (start != null)
                     startDate = formatDate(new Date(start))
@@ -213,25 +221,29 @@
                         category: params.category,
                         start: startDate,
                         end: endDate,
-                        slug: params.slug
+                        slug: params.slug,
+                        page: params.page,
+                        limit: params.limit,
                     },
                     dataType: 'json',
                     success: function(recipes){
+                        //console.log(recipes.data)
                         let box = baseurl + '/box/'
-                        let path = baseurl + window.location.pathname
+                        let path = baseurl + '/recette/'
+                        //console.log(path)
                         let html = ''
-                        $.each(recipes, function (key, recipe) {
+                        $.each(recipes.data, function (key, recipe) {
                             let date = new Date(recipe.date)
                             date = date.getDate()
                                 + '/' + ("0" + (date.getMonth() + 1)).slice(-2) + '/'
                                 + date.getFullYear()
                             html += '<div class="recipe-single animated wow flipInY animation-delay200ms">'
                             html += '<div class="recipe-image">'
-                            html += '<a href="'+ path + recipe.id +'"><img src="'+ box+recipe.image +'" alt="'+ recipe.nom +'"></a>'
+                            html += '<a href="'+ path + recipe.slug +'"><img src="'+ box+recipe.image +'" alt="'+ recipe.nom +'"></a>'
                             html += '</div>'
                             html += '<div class="outer-detail">'
                             html += '<div class="detail">'
-                            html += '<h3><a href="'+ path + recipe.id +'">'+ recipe.nom +'</a></h3>'
+                            html += '<h3><a href="'+ path + recipe.slug +'">'+ recipe.nom +'</a></h3>'
                             html += '<div class="short-separator"></div>'
                             html += '<ul class="news-post-meta post-meta">'
                             html += '<li class="author"><a href="javascript:void(0);">'+ recipe.auteur.username +'</a></li>'

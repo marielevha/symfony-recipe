@@ -374,10 +374,18 @@ class RecetteController extends AbstractController
             $search->end = strtotime($request->query->get('end'));
             $search->end = new \DateTime(date('m/d/Y H:i:s', $search->end));
         }
-
+        if ($request->query->has('page')) {
+            $search->page = $request->query->getInt('page');
+        }
+        if ($request->query->has('limit')) {
+            $search->limit = $request->query->getInt('limit');
+        }
+        /*sleep(2);
         $recipes = $recetteRepository->findSearch($search);
+        return $this->json($recipes, 200, [], ['groups' => 'recette:read']);*/
 
         sleep(2);
+        $recipes = $recetteRepository->findSearchWithPagination($search, 2);
         return $this->json($recipes, 200, [], ['groups' => 'recette:read']);
     }
 
