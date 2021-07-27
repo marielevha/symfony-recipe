@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}EDIT CATEGORY{% endblock %}
+{% block title %}MODIFIER CATEGORIE{% endblock %}
 
 {% block body %}
 
@@ -8,7 +8,7 @@
     <div class="banner banner-blog">
         <div class="container ">
             <div class="main-heading">
-                <h1>Edit Category</h1>
+                <h1>Modifier Categorie</h1>
             </div>
 
         </div>
@@ -21,22 +21,18 @@
             <div class="row">
                 <div class="col-md-8 col-lg-9">
                     <div class="recipe-set submit-recipe-set">
-                        <h2>Submit Category</h2>
-                        <p>Food Recipe theme include a Recipe Submit Template. It allow users to submit a recipe with
-                            featured image and related details. A user
-                            should be logged in to submit a recipe. </p>
 
                         <div class="submit-recipe-form">
                             {{ form_start(form, {'attr': {'method': 'POST'}}) }}
-                            <label for="categorie_nom">Recipe Title</label>
-                            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Recipe Title'}}) }}
+                            <label for="categorie_nom">Nom Catégorie</label>
+                            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom Catégorie'}}) }}
                             <br/>
 
-                            <label for="categorie_description">Short Description</label>
-                            {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Recipe Description'}}) }}
+                            <label for="categorie_description">Description Catégorie</label>
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description Catégorie'}}) }}
 
                             <div class="text-center">
-                                <button type="submit" class="recipe-submit-btn">Submit Your Recipe</button>
+                                <button type="submit" class="recipe-submit-btn">Enregistrer</button>
                             </div>
                             {{ form_end(form) }}
                         </div>
@@ -63,12 +59,12 @@
                                         <ul>
                                             <li>
                                                 <a href="{{ path('categorie_index') }}" class="btn-block">
-                                                    <button type="button" class="btn btn-primary btn-lg btn-block">Back to list</button>
+                                                    <button type="button" class="btn btn-primary btn-lg btn-block">Revenir à la liste</button>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="{{ path('categorie_show', {'id': categorie.id}) }}" class="btn-block">
-                                                    <button type="button" class="btn btn-info btn-lg btn-block">Show</button>
+                                                    <button type="button" class="btn btn-info btn-lg btn-block">Afficher</button>
                                                 </a>
                                             </li>
                                             {{ include('categorie/_delete_form.html.twig') }}

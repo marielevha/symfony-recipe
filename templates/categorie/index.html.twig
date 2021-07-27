@@ -1,49 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categorie index{% endblock %}
+{% block title %}LISTE CATEGORIES{% endblock %}
 
 {% block body %}
-    {#<h1>Categorie index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorie in categories %}
-            <tr>
-                <td>{{ categorie.id }}</td>
-                <td>{{ categorie.nom }}</td>
-                <td>{{ categorie.description }}</td>
-                <td>
-                    <a href="{{ path('categorie_show', {'id': categorie.id}) }}">show</a>
-                    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('categorie_new') }}">Create new</a>#}
-
     <div class="container mt-5">
-        <h1>Category index</h1>
+        <h1>Liste Categories</h1>
 
         <div class="card">
             <div class="card-header navbar navbar-light bg-light justify-content-between">
-                <a class="navbar-brand">Categories List</a>
                 <a href="{{ path('categorie_new') }}">
                     <button id="add-button" class="btn btn-outline-success" type="button">
-                        Create new
+                        Ajouter catégorie
                     </button>
                 </a>
             </div>
@@ -81,7 +48,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="4">no records found</td>
+                        <td colspan="4">Aucun résultats trouvés</td>
                     </tr>
                 {% endfor %}
                 </tbody>

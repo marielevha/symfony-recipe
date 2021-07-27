@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}NEW CATEGORY{% endblock %}
+{% block title %}AJOUTER CATEGORIE{% endblock %}
 
 {% block body %}
 
@@ -8,7 +8,7 @@
     <div class="banner banner-blog">
         <div class="container ">
             <div class="main-heading">
-                <h1>Create Category</h1>
+                <h1>Ajouter Categorie</h1>
             </div>
 
         </div>
@@ -20,28 +20,17 @@
             <div class="row">
                 <div class="col-md-8 col-lg-9">
                     <div class="recipe-set submit-recipe-set">
-                        <h2>Submit Category</h2>
-                        <p>Food Recipe theme include a Recipe Submit Template. It allow users to submit a recipe with
-                            featured image and related details. A user
-                            should be logged in to submit a recipe. </p>
-
                         <div class="submit-recipe-form">
                             {{ form_start(form, {'attr': {'method': 'POST'}}) }}
-                                <label for="categorie_nom">Recipe Title</label>
-                                {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Recipe Title'}}) }}
+                                <label for="categorie_nom">Nom Catégorie</label>
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom Catégorie'}}) }}
                                 <br/>
 
-                                <label for="categorie_description">Short Description</label>
-                                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Recipe Description'}}) }}
-
-
-                                {#<div class="form-group green-border-focus">
-                                    <label for="exampleFormControlTextarea5">Short Description</label>
-                                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-                                </div>#}
+                                <label for="categorie_description">Description Catégorie</label>
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description Catégorie'}}) }}
 
                                 <div class="text-center">
-                                    <button type="submit" class="recipe-submit-btn">Submit Your Recipe</button>
+                                    <button type="submit" class="recipe-submit-btn">Enregistrer</button>
                                 </div>
                             {{ form_end(form) }}
                         </div>
@@ -68,7 +57,7 @@
                                         <ul>
                                             <li>
                                                 <a href="{{ path('categorie_index') }}" class="btn-block">
-                                                    <button type="button" class="btn btn-primary btn-lg btn-block">Back to list</button>
+                                                    <button type="button" class="btn btn-primary btn-lg btn-block">Revenir à la liste</button>
                                                 </a>
                                             </li>
                                         </ul>
