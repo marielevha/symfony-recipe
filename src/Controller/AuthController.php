@@ -33,6 +33,12 @@ class AuthController extends AbstractController
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             $user->setSlug($this->slug_generate($user->getUsername()));
+            if ($request->get('role') == null) {
+                $user->setRules('ROLE_USER');
+            }
+            else {
+                $user->setRules($request->get('role'));
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}EDIT RECETTE!{% endblock %}
+{% block title %}MODIFIER RECETTE!{% endblock %}
 
 {% block body %}
     <!--banner-->
     <div class="banner banner-blog">
         <div class="container ">
             <div class="main-heading">
-                <h1>Submit Recipe</h1>
+                <h1>Modifier Recettes</h1>
             </div>
 
         </div>
@@ -101,10 +101,10 @@
             <div class="row">
                 <div class="col-md-8 col-lg-9">
                     <div class="recipe-set submit-recipe-set">
-                        <h2>Submit Recipe</h2>
+                        {#<h2>Submit Recipe</h2>
                         <p>Food Recipe theme include a Recipe Submit Template. It allow users to submit a recipe with
                             featured image and related details. A user
-                            should be logged in to submit a recipe. </p>
+                            should be logged in to submit a recipe. </p>#}
 
                         <div class="submit-recipe-form">
                             {{ form_start(form, {'attr': {'method': 'POST'}}) }}
@@ -154,7 +154,7 @@
                                         {# <input type="text" value="{{ recette.duree }}" name="cree_recette[duree]" id="yield"/> #}
                                         {# {{ form_widget(form.duree) }} #}
                                         {# <input type="time" id="edit_recette_date" name="edit_recette[date]" required="required" value="12:38" /> #}
-                                        {{ form_widget(form.date) }}
+                                        {{ form_widget(form.duree) }}
                                     </div>
                                     <div class="col-sm-6">
                                         <label for="edit_recette_personne">Servings</label>
@@ -164,13 +164,13 @@
                                     </div>
                                 </div>
 
-                                <label for="upload-image">Overview Image</label>
+                                <label for="upload-image">Image à la une</label>
                                 {#<input type="file" name="new_image" id="new_image"/>#}
                                 {# {{ form_widget(form.image, {'attr': {'class': '',}}) }} #}
                                 {{ form_widget(form.new_image) }}
 
                                 <fieldset class="ingredient-set">
-                                    <label for="medias">Others Medias</label>
+                                    <label for="medias">Autres images</label>
                                     <ul class="list-sortable medias-list">
                                         <li>
                                             <div class="add-fields">
@@ -252,10 +252,11 @@
                                 <input type="text" name="tags" id="tags"/> #}
 
 
-                                {{ form_widget(form.duree, {'attr': {'style': 'display: none',}}) }}
+                                {#{{ form_widget(form.duree, {'attr': {'style': 'display: none',}}) }}#}
+                                {{ form_widget(form.date, {'attr': {'style': 'display: none',}}) }}
                                 {{ form_widget(form.auteur, {'attr': {'style': 'display: none',}}) }}
                                 <div class="text-center">
-                                    <button type="submit" class="recipe-submit-btn">Submit Your Recipe</button>
+                                    <button type="submit" class="recipe-submit-btn">Enregistrer</button>
                                 </div>
                             {#</form>#}
                             {{ form_end(form) }}
@@ -282,8 +283,8 @@
                                     <!--<div class="list-inner">-->
                                     <ul>
                                         <li>
-                                            <a href="{{ path('recette_show', {'id': recette.id}) }}" class="btn-block">
-                                                <button type="button" class="btn btn-info btn-lg btn-block">Show</button>
+                                            <a href="{{ path('recette_show', {'slug': recette.slug}) }}" class="btn-block">
+                                                <button type="button" class="btn btn-info btn-lg btn-block">Afficher</button>
                                             </a>
                                         </li>
                                         {{ include('recette/_delete_form.html.twig') }}

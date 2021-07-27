@@ -15,7 +15,7 @@
     <div class="banner banner-blog">
         <div class="container ">
             <div class="main-heading">
-                <h1>Submit Recipe</h1>
+                <h1>Détails De La Recette</h1>
             </div>
 
         </div>
@@ -56,6 +56,11 @@
                                         <div class="top-slider">
                                             <div id="single-slider-flex" class="flexslider slider-detail">
                                                 <ul class="slides">
+                                                    <li>
+                                                        <a rel="recipe-slider-1" href="javascript:void(0);" class="swipebox">
+                                                            <img src="{{ asset('box/' ~ recette.image) }}" alt="{{ recette.nom }}"/>
+                                                        </a>
+                                                    </li>
                                                     {% for media in recette.media %}
                                                     <li>
                                                         <a rel="recipe-slider-1" href="javascript:void(0);" class="swipebox">
@@ -76,6 +81,13 @@
                                         <div id="recipe-slider-carousel">
                                             <div id="recipe-carousel-flex">
                                                 <ul class="slides">
+                                                    <li>
+                                                        <img
+                                                            src="{{ asset('box/' ~ recette.image) }}"
+                                                            alt="{{ recette.nom }}"
+                                                            style="width: 100px; height: 59px;"
+                                                        />
+                                                    </li>
                                                     {% for media in recette.media %}
                                                     <li>
                                                         <img
@@ -98,18 +110,22 @@
                                     </div>
                                     <ul class="recipe-specs">
                                         <li>
-                                            <span class="count">5</span>
-                                            <span class="text">Yield</span>
-                                        </li>
-                                        <li>
                                             <span class="count">{{ recette.personne }}</span>
-                                            <span class="text">Servings</span>
+                                            <span class="text">Personnes</span>
                                         </li>
                                         <li>
                                             <span class="count">{{ recette.duree }}
-                                                <span>h</span>
+                                                {#<span>h</span>#}
                                             </span>
-                                            <span class="text">Cook Time</span>
+                                            <span class="text"> Temps</span>
+                                        </li>
+                                        <li>
+                                            <span class="count"></span>
+                                            <span class="text"></span>
+                                        </li>
+                                        <li>
+                                            <span class="count"></span>
+                                            <span class="text"></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -119,12 +135,12 @@
                             <div class="recipe-detail-body">
                                 <a href="javascript:void(0);" class="print-button">
                                     <i class="fa fa-print"></i>
-                                    Print Recipe
+                                    Imprimer recette
                                 </a>
 
                                 <ul class="pre-tags">
-                                    <li><span>Category : </span>{{ recette.categorie.nom }}</li>
-                                    <li><span>Skill Level : </span>{{ recette.difficulte }}</li>
+                                    <li><span>Categorie : </span>{{ recette.categorie.nom }}</li>
+                                    <li><span>Difficulté : </span>{{ recette.difficulte }}</li>
                                     {#<li><span>Course : </span>Side Dish</li>#}
                                 </ul>
                                 <div class="separator-post"></div>
@@ -144,7 +160,7 @@
                                             {% endfor %}
                                         </ul>
                                     </div>
-                                    <div class="nutritional">
+                                    {#<div class="nutritional">
                                         <h3>Nutritional</h3>
                                         <div class="nutrition-detail">
                                             <div class="left-box">
@@ -197,8 +213,7 @@
                                                 <span>80g</span>
                                             </div>
                                         </div>
-
-                                    </div>
+                                    </div>#}
                                 </div>
 
                                 {#<div class="recipe-steps">
@@ -680,7 +695,7 @@
 
                             {% if app.user != null %}
                             <div class="comment-form">
-                                <h3 class="lined">Leave Comment</h3>
+                                <h3 class="lined">Laisser un commentaire</h3>
 
                                 {#<form action="{{ path('comment_create', {'id': recette.id}) }}" method="post">#}
                                 <form id="comment-form" method="post">
@@ -695,7 +710,7 @@
                                     </div>#}
                                     <textarea name="content" id="content" cols="30" rows="10" placeholder="Message"></textarea>
                                     <button id="btn-post-comment" class="submit-comment">
-                                        Submit
+                                        Poster
                                     </button>
                                 </form>
                             </div>
@@ -778,16 +793,19 @@
                                             {% if app.user.id == recette.auteur.id %}
                                                 <li>
                                                     <a href="{{ path('recette_edit', {'id': recette.id}) }}" class="btn-block">
-                                                        <button type="button" class="btn btn-info btn-lg btn-block">Edit</button>
+                                                        <button type="button" class="btn btn-info btn-lg btn-block">Modifier</button>
                                                     </a>
                                                 </li>
                                                 {{ include('recette/_delete_form.html.twig') }}
                                             {% endif %}
-                                            <li>
-                                                <a href="javascript:void(0);" id="btn-rate" class="btn-block">
-                                                    <button type="button" class="btn btn-info btn-lg btn-block">Rate</button>
-                                                </a>
-                                            </li>
+
+                                            {% if app.user.id != recette.auteur.id %}
+                                                <li>
+                                                    <a href="javascript:void(0);" id="btn-rate" class="btn-block">
+                                                        <button type="button" class="btn btn-info btn-lg btn-block">Noter</button>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
                                             <li style="display: none" id="star-block">
                                                 <a href="javascript:void(0);" class="text-center">
                                                     {{ include('components/star_empty.html.twig') }}

@@ -62,8 +62,9 @@
 
     function rate_recipe(value) {
         let btn = $('#btn-rate');
+        console.log(baseurl + '/recette/' + $('#recipe').val() + '/rate')
         $.ajax({
-            url: baseurl + window.location.pathname + '/rate',
+            url: baseurl + '/recette/' + $('#recipe').val() + '/rate',
             type: 'post',
             data: {value: value},
             dataType: 'json',

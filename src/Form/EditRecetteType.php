@@ -31,8 +31,8 @@ class EditRecetteType extends AbstractType
             ->add('image', HiddenType::class)
             ->add('difficulte', ChoiceType::class, [
                 'choices' => [
-                    "Easy" => 'Easy',
-                    "Medium" => 'Moyen',
+                    "Facile" => 'Facile',
+                    "Moyen" => 'Moyen',
                     "Difficile " => 'Difficile',
                     "Expert " => 'Expert',
                 ],
@@ -44,7 +44,8 @@ class EditRecetteType extends AbstractType
                 //'multiple' => false
             ])
             ->add('personne', IntegerType::class)
-            ->add('duree', IntegerType::class)
+            ->add('duree')
+            //->add('duree', IntegerType::class)
             //->add('date', DateType::class)
             ->add('date', TimeType::class, [
                 'input'  => 'datetime',

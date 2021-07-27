@@ -21,8 +21,9 @@ class HomeController extends AbstractController
         //dd($recetteRepository->popular_recipes(6));
         return $this->render('home/index.html.twig', [
             'categories' => $categorieRepository->findAll(),
-            'popular_recipes' => $recetteRepository->popular_recipes(6),
-            'latest_recipes' => $recetteRepository->latest_recipes(6)
+            'popular_recipes_slider' => $recetteRepository->popular_recipes(3),
+            'popular_recipes' => $recetteRepository->popular_recipes(8),
+            'latest_recipes' => $recetteRepository->latest_recipes(8)
         ]);
     }
 }

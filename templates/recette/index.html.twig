@@ -23,7 +23,7 @@
     <div class="banner banner-blog">
         <div class="container ">
             <div class="main-heading">
-                <h1>LIST RECIPES</h1>
+                <h1>LISTES RECETTES</h1>
             </div>
 
         </div>
@@ -34,7 +34,7 @@
             <div class="wrapper-search">
                 <div class="container-tags">
                     <span class="tag">
-                        <span class="tag-inner">Find Recipes <i class="fa fa-angle-down"></i></span>
+                        <span class="tag-inner">Trouver Recettes <i class="fa fa-angle-down"></i></span>
                     </span>
                 </div>
                 <div class="outer-advance-search">
@@ -45,9 +45,9 @@
                             <div class="inner-advance-search">
 
                                 <div class="form-field">
-                                    <label for="filter_category">Category</label>
+                                    <label for="filter_category">Categorie</label>
                                     <select id="filter_category" name="filter_category" class="advance-selectable">
-                                        <option value="" disabled selected="selected">Choose category</option>
+                                        <option value="" disabled selected="selected">Choisir categorie</option>
                                         {% for category in categories %}
                                             <option value="{{ category.id }}">{{ category.nom }}</option>
                                         {% endfor %}
@@ -55,9 +55,10 @@
                                 </div>
 
                                 <div class="form-field">
-                                    <label for="filter_level">Level</label>
+                                    <label for="filter_level">Difficulté</label>
                                     <select id="filter_level" name="filter_level" class="advance-selectable">
-                                        <option value="" disabled selected="selected">Choose Level</option>
+                                        <option value="" disabled selected="selected">Choisir difficulté</option>
+                                        <option value="all">Tout voir</option>
                                         <option value="Facile">Facile</option>
                                         <option value="Moyen">Moyen</option>
                                         <option value="Difficile">Difficile</option>
@@ -69,7 +70,7 @@
                                 </div>
 
                                 <div class="form-field">
-                                    <label for="filter_time">Publish At</label>
+                                    <label for="filter_time">Date de publication</label>
                                     <div id="reportrange"
                                          style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                         <i class="fa fa-calendar"></i>&nbsp;
@@ -78,7 +79,7 @@
                                 </div>
 
                                 <div class="form-field">
-                                    <label for="q">Recipe Title</label>
+                                    <label for="q">Titre recette</label>
                                     <input type="text" name="q" id="q">
                                     {# {{ form_widget(form.q) }} #}
                                 </div>
@@ -247,6 +248,7 @@
             $('#filter_level').on("change", function (e) {
                 e.preventDefault();
                 params.level = filter_level.val()
+                //console.log(params.level)
                 load_recipes(params, start, end)
             });
             $('#q').on("keyup", function (e) {

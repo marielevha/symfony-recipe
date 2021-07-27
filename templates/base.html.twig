@@ -84,7 +84,7 @@
                                                     {% if app.user != null %}
                                                         <li>
                                                             <a title="My Profile" href="{{ path('user_profile', {'slug': app.user.slug}) }}">
-                                                                <h4>Hello {{ app.user.username }} !</h4>
+                                                                <h4>Hi {{ app.user.username }} !</h4>
                                                             </a>
                                                         </li>
                                                         <li>
@@ -95,10 +95,10 @@
                                                     {% endif %}
                                                 </ul>
                                                 {% if app.user == null %}
-                                                <span class="sign-in-buttons">
-                                                    <a class="login" href="{{ path('login') }}">Login</a>
-                                                    <a class="register" href="{{ path('register') }}">Register</a>
-                                                </span>
+                                                    <span class="sign-in-buttons">
+                                                        <a class="login" href="{{ path('login') }}">Se connecter</a>
+                                                        <a class="register" href="{{ path('register') }}">S'enregistrer</a>
+                                                    </span>
                                                 {% endif %}
                                             </div>
 
@@ -121,14 +121,14 @@
                         <nav class="responsive-menu">
                             <ul>
                                 <li>
-                                    <a href="{{ path('home') }}">Landing Page</a>
+                                    <a href="{{ path('home') }}">Accueil</a>
                                     {#<ul>
                                         <li><a href="variation1.html">variation one</a></li>
                                         <li><a href="variation6.html">variation six</a></li>
                                     </ul>#}
                                 </li>
                                 <li>
-                                    <a href="{{ path('recette_index') }}">Recent Recipes</a>
+                                    <a href="{{ path('recette_index') }}">Recettes</a>
                                     {#<ul>
                                         <li><a href="recipe-listing.html">recipe listing list view</a></li>
                                         <li><a href="recipe-listing-grid.html">recipe listing grid view</a></li>
@@ -155,12 +155,16 @@
                                 {#<li><a href="elements.html">Elements</a></li>#}
                                 {#<li><a href="contact.html">Contact</a></li>#}
                                 {% if app.user != null %}
-                                    <li class="submit-recipe">
-                                        <a href="{{ path('categorie_new') }}">Submit Category</a>
-                                    </li>
-                                    <li class="submit-recipe">
-                                        <a href="{{ path('recette_create') }}">Submit Recipe</a>
-                                    </li>
+                                    {% if 'ROLE_ADMIN' in app.user.rules %}
+                                        <li class="submit-recipe">
+                                            <a href="{{ path('categorie_new') }}">Ajouter Categorie</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if 'ROLE_USER' in app.user.rules %}
+                                        <li class="submit-recipe">
+                                            <a href="{{ path('recette_create') }}">Ajouter Recette</a>
+                                        </li>
+                                    {% endif %}
                                 {% endif %}
                             </ul>
                         </nav>
@@ -226,7 +230,7 @@
                         </div>
                     </div>
                     <div class="footer-copyright text-center wow animated flipInY">
-                        <p>&copy; Copyright 2015 All Rights Reserved by <a href="#">Majestic Themes</a></p>
+                        <p>&copy; Copyright 2021 All Rights Reserved by <a href="#">MAEVA</a></p>
                     </div>
                     <div class="corner-image wow animated fadeInRight">
                         <img src="{{ asset('assets/images/footer-corner-image.jpg') }}" alt="image"/>

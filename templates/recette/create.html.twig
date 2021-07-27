@@ -7,7 +7,7 @@
     <div class="banner banner-blog">
         <div class="container ">
             <div class="main-heading">
-                <h1>Submit Recipe</h1>
+                <h1>Ajouter Recettes</h1>
             </div>
 
         </div>
@@ -101,19 +101,19 @@
             <div class="row">
                 <div class="col-md-8 col-lg-9">
                     <div class="recipe-set submit-recipe-set">
-                        <h2>Submit Recipe</h2>
+                        {#<h2>Submit Recipe</h2>
                         <p>Food Recipe theme include a Recipe Submit Template. It allow users to submit a recipe with featured image and related details. A user
-                            should be logged in to submit a recipe. </p>
+                            should be logged in to submit a recipe. </p>#}
 
                         <div class="submit-recipe-form">
                             {#{{ form_start(form, {'attr': {'method': 'POST'}}) }}#}
                             <form action="{{ path('recette_create') }}" method="post" enctype="multipart/form-data">
-                                <label for="title">Recipe Title</label>
+                                <label for="title">Nom de la recette</label>
                                 <input type="text" name="cree_recette[nom]" id="cree_recette_nom" />
                                 {#{{ form_widget(form.nom, {'attr': {'class': '', 'placeholder': 'Recipe Title'}}) }}#}
                                 <br/>
 
-                                <label for="short-description">Short Description</label>
+                                <label for="short-description">Description de la recette</label>
                                 <textarea class="short-text" name="cree_recette[description]" id="short-description" cols="30" rows="10"></textarea>
                                 {#{{ form_widget(form.description, {'attr': {'class': 'short-text', 'placeholder': 'Short Description'}}) }}#}
 
@@ -123,9 +123,9 @@
 
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label for="course-select">Skill Level</label>
+                                        <label for="course-select">Difficulté</label>
                                         <select name="difficulte" id="course-select" class="advance-selectable">
-                                            <option value="Facile" selected="selected">Choose level</option>
+                                            <option value="Facile" disabled selected="selected">Choisir difficulté</option>
                                             <option value="Facile">Facile</option>
                                             <option value="Moyen">Moyen</option>
                                             <option value="Difficile">Difficile</option>
@@ -135,7 +135,7 @@
                                     <div class="col-sm-6">
                                         <label for="skill">Categories</label>
                                         <select name="categorie" id="skill" class="advance-selectable">
-                                            <option value="0" selected="selected">Any Category</option>
+                                            <option value="1" disabled selected="selected">Choisir categorie</option>
                                             {% for category in categories %}
                                                 <option value="{{ category.id }}">{{ category.nom }}</option>
                                             {% endfor %}
@@ -145,17 +145,17 @@
 
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label for="yield">Preparation Time</label>
+                                        <label for="yield">Temps</label>
                                         <input type="text" name="cree_recette[duree]" id="yield"/>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="servings">Servings</label>
+                                        <label for="servings">Nombre de personne(s)</label>
                                         <input type="text" name="cree_recette[personne]" id="servings"/>
                                         {#{{ form_widget(form.personne, {'attr': {'class': '', 'placeholder': '1'}}) }}#}
                                     </div>
                                 </div>
 
-                                <label for="upload-image">Overview Image</label>
+                                <label for="upload-image">Image à la une</label>
                                 <input type="file" name="image" id="image"/>
                                 {#{{ form_widget(form.image, {'attr': {'class': '',}}) }}#}
                                 <fieldset class="ingredient-set">
@@ -239,7 +239,7 @@
 
 
                                 <div class="text-center">
-                                    <button type="submit" class="recipe-submit-btn">Submit Your Recipe</button>
+                                    <button type="submit" class="recipe-submit-btn">Enregistrer</button>
                                 </div>
                             </form>
                             {#{{ form_end(form) }}#}

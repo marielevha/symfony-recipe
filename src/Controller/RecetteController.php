@@ -91,8 +91,6 @@ class RecetteController extends AbstractController
         ]);*/
 
         if ($form->isSubmitted()) {
-            //dd([$request->files->get('medias'), $request->files->get('image')]);
-            //$image = $request->files->get('$image');
             $image = $request->files->get('image');
             if ($image) {
                 $filename = uniqid() . "." . $image->guessExtension();
@@ -103,10 +101,11 @@ class RecetteController extends AbstractController
                 'id' => $request->get('categorie'),
             ]);
             $recette->setCategorie($categorie);
-            $user = $userRepository->findOneBy(['id' => 6]);
+            $user = $userRepository->find($this->getUser()->getId());
             $recette->setAuteur($user);
             $recette->setDifficulte($request->get('difficulte'));
             $recette->setSlug($this->slug_generate($recette->getNom()));
+            //dd([$request, $recette]);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($recette);
@@ -125,6 +124,7 @@ class RecetteController extends AbstractController
             }
 
             $medias = $request->files->get('medias');
+            //dd([$recette, $medias]);
             if (!empty($medias)) {
                 $this->upload_multiple_media($medias, $recette, $entityManager);
             }
@@ -271,7 +271,7 @@ class RecetteController extends AbstractController
                 $this->upload_multiple_media($medias, $recette, $entityManager);
             }*/
 
-            return $this->redirectToRoute('recette_show', ['id' => $recette->getId()]);
+            return $this->redirectToRoute('recette_show', ['slug' => $recette->getSlug()]);
         }
         $categories = $this->array_remove_object($categorieRepository->findAll(), $recette->getCategorie()->getId());
         return $this->render('recette/edit.html.twig', [
@@ -305,7 +305,7 @@ class RecetteController extends AbstractController
         });
         $recette->rating = $this->avg_rating($recette->getNotes());
 
-        //dd($recette->getAuteur()->);
+        //dd($recette->getMedia()->count());
 
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
@@ -357,7 +357,7 @@ class RecetteController extends AbstractController
             $search->q = $request->query->get('q');
         }
         if ($request->query->has('level') && $request->query->get('level') != null) {
-            $search->categorie = $request->query->get('category');
+            $search->level = $request->query->get('level');
         }
         if ($request->query->has('category') && $request->query->get('category') != null) {
             $search->categorie = $categorieRepository->find($request->query->get('category'));
@@ -385,7 +385,7 @@ class RecetteController extends AbstractController
         return $this->json($recipes, 200, [], ['groups' => 'recette:read']);*/
 
         sleep(2);
-        $recipes = $recetteRepository->findSearchWithPagination($search, 2);
+        $recipes = $recetteRepository->findSearchWithPagination($search);
         return $this->json($recipes, 200, [], ['groups' => 'recette:read']);
     }
 
@@ -417,7 +417,7 @@ class RecetteController extends AbstractController
     {
         $recette = $recetteRepository->find($request->get('id'));
         $value = $request->get('value');
-        $user = $userRepository->find(7);
+        $user = $userRepository->find($this->getUser()->getId());
         $updated = false;
 
         //dd($recette->getNotes()->getValues());
@@ -467,8 +467,11 @@ class RecetteController extends AbstractController
             $entityManager->persist($media);
             //$this->entityManager->flush();
             //$recette->setImage($filename);
+            $entityManager->flush();
+            //dump($media);
         }
-        $entityManager->flush();
+        //$entityManager->flush();
+        //die();
     }
 
     private function array_remove_object($array, $value)
@@ -498,9 +501,10 @@ class RecetteController extends AbstractController
         return $rating == 0 ? 0 : intval(ceil($rating / $notes->count()));
     }
 
-
     /**
      * @Route("/generate_slug")
+     * @param Request $request
+     * @param RecetteRepository $recetteRepository
      */
     public function generate_slug(Request $request, RecetteRepository $recetteRepository)
     {

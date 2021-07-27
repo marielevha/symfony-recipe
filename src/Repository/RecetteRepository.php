@@ -55,15 +55,14 @@ class RecetteRepository extends ServiceEntityRepository
         $recipes = [];
         $query = $this->createQueryBuilder('r')
             ->orderBy('r.id', 'desc')
-            ->getQuery()
-            ;
+            ->getQuery();
         $paginator = new Paginator($query);
         $totalItems = count($paginator);
         $pagesCount = intval(ceil($totalItems / $limit));
 
         $paginator
             ->getQuery()
-            ->setFirstResult($limit * ($page-1)) // set the offset
+            ->setFirstResult($limit * ($page - 1)) // set the offset
             ->setMaxResults($limit); // set the limit
 
         foreach ($paginator as $pageItem) {
@@ -106,17 +105,17 @@ class RecetteRepository extends ServiceEntityRepository
         foreach ($recipes as $recipe) {
             $recipe->rating = $this->avg_rating($recipe->getNotes());
         }
-        usort($recipes, function($a, $b)
-        {
+        usort($recipes, function ($a, $b) {
             return strcmp($b->rating, $a->rating);
         });
 
-        $_recipes = []; $count = 1;
+        $_recipes = [];
+        $count = 1;
         foreach ($recipes as $recipe) {
             if ($count <= $limit) {
                 array_push($_recipes, $recipe);
             }
-            $count ++;
+            $count++;
         }
 
         return $_recipes;
@@ -136,8 +135,7 @@ class RecetteRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('r')
             ->select('r', 'c')
             ->orderBy('r.date', 'DESC')
-            ->join('r.categorie', 'c')
-        ;
+            ->join('r.categorie', 'c');
 
         if (!empty($search->q)) {
             $query = $query
@@ -189,9 +187,11 @@ class RecetteRepository extends ServiceEntityRepository
                 ->setParameter('q', "%{$search->q}%");
         }
         if (!empty($search->level)) {
-            $query = $query
-                ->andWhere('r.difficulte = :level')
-                ->setParameter('level', $search->level);
+            if ($search->level != 'all') {
+                $query = $query
+                    ->andWhere('r.difficulte = :level')
+                    ->setParameter('level', $search->level);
+            }
         }
         if (!empty($search->categorie)) {
             $query = $query
